@@ -1,0 +1,401 @@
+<html>
+<head>
+<script>
+function show(shown, hidden) {
+  document.getElementById(shown).style.display='block';
+  document.getElementById(hidden).style.display='none';
+  return false;
+}
+</script>
+</head>
+<body>
+
+  <div id="db">
+    <h1>Please Register</h1>
+    <a href="#" onclick="return show('Student_Register','db');">Register as Student</a>
+    <a href="#" onclick="return show('Parent_Register','db');">Register as Parent</a>
+    <h1>Please Login</h1>
+    <a href="#" onclick="return show('Student_Login','db');">Login as Student</a>
+    <a href="#" onclick="return show('Parent_Login','db');">Login as Parent</a>
+  </div>
+
+  <div id="Parent_Register" style="display:none">
+    <a href="#" onclick="return show('db','Parent_Register');">Your app name</a>
+
+    <h1>Parent Register</h1>
+
+    <form>
+      <input placeholder="Enter your email" type="text" name="Parent_Email"><br>
+      <input placeholder="Password" type="password" name="Parent_Pass"><br>
+      <input placeholder="Confirm password" type="password" name="Parent_Confirm_Pass"><br>
+
+      <label>
+        Role:
+        <select>
+          <option value="No">No</option>
+          <option value="Moderator">Moderator</option>
+        </select>
+      </label>
+      </br>
+
+      <input placeholder="Name" type="text" name="Parent_Name"><br>
+      <input placeholder="Phone Number" type="text" name="Parent_Phone_Number"><br>
+      <input placeholder="City" type="text" name="Parent_City"><br>
+      <input placeholder="State" type="text" name="Parent_State"><br>
+      <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
+    </form>
+
+
+
+  </div>
+
+
+  <div id="Student_Register" style="display:none">
+    <a href="#" onclick="return show('db','Student_Register');">Your app name</a>
+
+    <h1>Student Register</h1>
+
+    <form>
+      <input placeholder="Enter your email" type="text" name="Student_Email"><br>
+      <input placeholder="Enter your parent email" type="text" name="Students_Parent_Email"><br>
+      <input placeholder="Password" type="password" name="Student_Pass"><br>
+      <input placeholder="Confirm password" type="password" name="Student_Confirm_Pass"><br>
+
+      <label>
+        Role:
+        <select>
+          <option value="No">No</option>
+          <option value="Mentor">Moderator</option>
+          <option value="Mentee">Mentee</option>
+          <option value="Both">Both</option>
+        </select>
+      </label>
+      </br>
+      <label>
+        Grade:
+        <select>
+          <option value="Freshman">Freshman</option>
+          <option value="Sophomore">Sophomore</option>
+          <option value="Junior">Junior</option>
+          <option value="Senior">Senior</option>
+        </select>
+      </label>
+      </br>
+
+      <input placeholder="Name" type="text" name="Student_Name"><br>
+      <input placeholder="Phone Number" type="text" name="Student_Phone_Number"><br>
+      <input placeholder="City" type="text" name="Student_City"><br>
+      <input placeholder="State" type="text" name="Student_State"><br>
+      <button onclick="document.getElementById('Student_Name').value=''">Submit</button>
+    </form>
+
+  </div>
+
+  <div id="Student_Login" style="display:none">
+    <a href="#" onclick="return show('db','Student_Login');">Your app name</a>
+
+    <h1>Login</h1>
+
+    <form>
+      <input placeholder="Enter your email" type="text" name="Student_Email_Login"><br>
+      <input placeholder="and password" type="password" name="Student_Pass_Login"><br>
+
+      <button onclick="document.getElementById('Student_Name').value=''">Submit</button>
+    </form>
+
+    <a href="#" onclick="return show('Student_Index','Student_Login');">TEMPORARY go to index</a>
+  </div>
+
+  <div id="Parent_Login" style="display:none">
+    <a href="#" onclick="return show('db','Parent_Login');">Your app name</a>
+
+    <h1>Login</h1>
+
+    <form>
+      <input placeholder="Enter your email" type="text" name="Parent_Email_Login"><br>
+      <input placeholder="and password" type="password" name="Parent_Pass_Login"><br>
+
+      <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
+    </form>
+
+    <a href="#" onclick="return show('Parent_Index','Parent_Login');">TEMPORARY go to index</a>
+  </div>
+
+  <div id="Parent_Index" style="display:none">
+
+    Welcome (name)
+
+    <br>
+    </br>
+    You are successfully logged in!
+
+    <br>
+    </br>
+    <a href="#" onclick="return show('Parent_Dashboard','Parent_Index');">Click Here To parent DashBoard</a>
+    <br>
+    </br>
+    <a href="#" onclick="return show('db','Parent_Index');">Logout?</a>
+  </div>
+
+  <div id="Student_Index" style="display:none">
+
+    Welcome (name)
+
+    <br>
+    </br>
+    You are successfully logged in!
+
+    <br>
+    </br>
+    <a href="#" onclick="return show('Student_Dashboard','Student_Index');">Click Here To student DashBoard</a>
+    <br>
+    </br>
+    <a href="#" onclick="return show('db','Student_Index');">Logout?</a>
+  </div>
+
+  <div id="Student_Dashboard" style="display:none">
+
+
+    <a href="#" onclick="return show('Student_Index','Student_Dashboard');">Student Dash Board</a>
+    <a href="#" onclick="return show('db','Student_Dashboard');">Logout?</a>
+
+    <br>
+    </br>
+    Your grade is (Grade)
+
+
+    <head>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+</head>
+    <table style="width:25%" style="height:15%">
+      <tr>
+        <th>User Type</th>
+        <th></th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>Profile</td>
+        <td><a href="#" onclick="return show('Student_Profile','Student_Dashboard');">Change Your Profile</a></td>
+      </tr>
+      <tr>
+        <td>Student</td>
+        <td>Section</td>
+        <td>View Sections</td>
+      </tr>
+      <tr>
+        <td>Mentor</td>
+        <td>Mentor</td>
+        <td>View Mentor</td>
+      </tr>
+      <tr>
+        <td>Mentee</td>
+        <td>Mentee</td>
+        <td>View Mentee</td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div id="Parent_Dashboard" style="display:none">
+
+
+    <a href="#" onclick="return show('Parent_Index','Parent_Dashboard');">Parent Dash Board</a>
+    <a href="#" onclick="return show('db','Parent_Dashboard');">Logout?</a>
+
+    <br>
+    </br>
+
+
+    <head>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+aqSz
+[P]
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+</head>
+    <table style="width:25%" style="height:15%">
+      <tr>
+        <th>User Type</th>
+        <th></th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>Profile</td>
+        <td><a href="#" onclick="return show('Parent_Profile','Parent_Dashboard');">Change Your Profile</a></td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>Profile</td>
+        <td><a href="#" onclick="return show('Parents_Children_Profile','Parent_Dashboard');">Change Your Children's Profile</a></td>
+      </tr>
+      <tr>
+        <td>Parent</td>
+        <td>Section</td>
+        <td>View Sections</td>
+      </tr>
+      <tr>
+        <td>Moderator</td>
+        <td>Moderator</td>
+        <td>View Moderator</td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div id="Student_Profile" style="display:none">
+    <a href="#" onclick="return show('Student_Dashboard','Student_Profile');">Your App Name</a>
+
+    <h1>Change Your Profile as Student User</h1>
+
+    <form>
+      <label>
+        Name:
+      <input placeholder="Name" type="text" name="Student_Name"><br>
+      <label>
+
+      <label>
+        PWD:
+      <input placeholder="Password" type="password" name="Student_Pass"><br>
+    </label>
+
+      <label>
+        Confirm:
+      <input placeholder="Confirm password" type="password" name="Student_Confirm_Pass"><br>
+    </label>
+
+    <label>
+      Phone:
+      <input placeholder="Phone Number" type="text" name="Student_Phone_Number"><br>
+    </label>
+    <label>
+      City:
+      <input placeholder="City" type="text" name="Student_City"><br>
+    </label>
+    <label>
+      State
+      <input placeholder="State" type="text" name="Student_State"><br>
+    </label>
+      <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
+    </form>
+
+
+
+  </div>
+
+
+  <div id="Parent_Profile" style="display:none">
+    <a href="#" onclick="return show('Parent_Dashboard','Parent_Profile');">Your App Name</a>
+
+    <h1>Change Your Profile as Parent User</h1>
+
+    <form>
+      <label>
+        Name:
+      <input placeholder="Name" type="text" name="Parent_Name"><br>
+      <label>
+
+      <label>
+        PWD:
+      <input placeholder="Password" type="password" name="Parent_Pass"><br>
+    </label>
+
+      <label>
+        Confirm:
+      <input placeholder="Confirm password" type="password" name="Parent_Confirm_Pass"><br>
+    </label>
+
+    <label>
+      Phone:
+      <input placeholder="Phone Number" type="text" name="Parent_Phone_Number"><br>
+    </label>
+    <label>
+      City:
+      <input placeholder="City" type="text" name="Parent_City"><br>
+    </label>
+    <label>
+      State
+      <input placeholder="State" type="text" name="Parent_State"><br>
+    </label>
+      <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
+    </form>
+
+
+
+  </div>
+
+  <div id="Parents_Children_Profile" style="display:none">
+    <a href="#" onclick="return show('Parent_Dashboard','Parents_Children_Profile');">Your App Name</a>
+
+    <h1>Change Your Children's Profile as Parent User</h1>
+
+    <form>
+      <label>
+        Name:
+      <input placeholder="Name" type="text" name="Parents_Children_Name"><br>
+      <label>
+
+      <label>
+        PWD:
+      <input placeholder="Password" type="password" name="Parents_Children_Pass"><br>
+    </label>
+
+      <label>
+        Confirm:
+      <input placeholder="Confirm password" type="password" name="Parents_Children_Confirm_Pass"><br>
+    </label>
+
+    <label>
+      Phone:
+      <input placeholder="Phone Number" type="text" name="Parents_Children_Phone_Number"><br>
+    </label>
+    <label>
+      City:
+      <input placeholder="City" type="text" name="Parents_Children_City"><br>
+    </label>
+    <label>
+      State
+      <input placeholder="State" type="text" name="Parents_Children_State"><br>
+    </label>
+      <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
+    </form>
+
+
+
+  </div>
+
+
+</body>
+</html>
