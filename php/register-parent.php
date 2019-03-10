@@ -14,8 +14,8 @@
   # determine next available id
   $max_id_query = "SELECT MAX(uID) FROM User";
   $result1 = mysqli_query($myconnection, $max_id_query) or die ('Query failed: ' . mysqli_error($myconnection));
-  $row = mysqli_fetch_row($result1);
-  if ($row[0]){
+  if ($result1){
+    $row = mysqli_fetch_row($result1);
     $p_id = $row[0] + 1;
   } else {
     $p_id = 1;
@@ -37,5 +37,5 @@
   # this points the browser back to useless.html, we may need to use echo instead
   # or figure out another way to indicate to the user that the registration was successful. 
   header('location: ../useless.html');
-  exit
+  exit;
 ?>
