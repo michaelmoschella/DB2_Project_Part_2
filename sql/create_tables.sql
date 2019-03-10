@@ -10,8 +10,9 @@ DROP TABLE IF EXISTS `Section`;
 DROP TABLE IF EXISTS `Course`;
 DROP TABLE IF EXISTS `Moderator`;
 DROP TABLE IF EXISTS `Family`;
-DROP TABLE IF EXISTS `MENTEE`;
+DROP TABLE IF EXISTS `Mentee`;
 DROP TABLE IF EXISTS `Mentor`;
+DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `User`;
 
 CREATE TABLE `User` (
@@ -21,9 +22,10 @@ CREATE TABLE `User` (
 	`phone` CHAR(14),
 	`username` CHAR(50),
 	`password` CHAR(50),
-	`type` CHAR(1),
+	`role` CHAR(50),
 
-	PRIMARY KEY (`uID`)
+	PRIMARY KEY (`uID`),
+	UNIQUE (`email`)
 ) DEFAULT CHARSET = utf8;
 /*INSERT INTO User
 VALUES (1, 'Billy Bob', 'bb@fake.com', '617-994-5233', 'bb', '123456', 'P');
@@ -32,19 +34,24 @@ VALUES (2, 'Betty Bob', 'bettyb@fake.com', '666-666-5666', 'bettyb', '987654', '
 INSERT INTO User
 VALUES (3, 'Bobby Bob', 'bobbyb@fake.com', '777-777-5777', 'bobbyb', '99999', 'S');
 */
+CREATE TABLE `Student` (
+	`sID` INT,
+	`grade` CHAR(50),
+
+	CONSTRAINT FOREIGN KEY (`sID`) REFERENCES User(`uID`) ON DELETE CASCADE
+) DEFAULT CHARSET = utf8;
+
 CREATE TABLE `Mentor` (
 	`orID` INT,
-	`grade` INT,
 
 	PRIMARY KEY (`orID`),
-	CONSTRAINT `a` FOREIGN KEY (`orID`) REFERENCES User(`uID`) ON DELETE CASCADE
+	CONSTRAINT FOREIGN KEY (`orID`) REFERENCES User(`uID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
 /*INSERT INTO Mentor
 VALUES (2, 10);*/
 
 CREATE TABLE `Mentee` (
 	`eeID` INT,
-	`GRADE` INT,
 	
 	PRIMARY KEY (`eeID`),
 	CONSTRAINT `b` FOREIGN KEY (`eeID`) REFERENCES User(`uID`)
@@ -52,7 +59,7 @@ CREATE TABLE `Mentee` (
 /*INSERT INTO Mentee
 VALUES (3, 7);*/
 
-CREATE TABLE Moderator (
+CREATE TABLE `Moderator` (
 	modID INT,
 	
 	PRIMARY KEY (modID),

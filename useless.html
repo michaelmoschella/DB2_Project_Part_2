@@ -54,7 +54,7 @@ function show(shown, hidden) {
 
     <h1>Student Register</h1>
 
-    <form>
+    <form action='php/register-student.php' method='POST'>
       <input placeholder="Enter your email" type="text" name="Student_Email"><br>
       <input placeholder="Enter your parent email" type="text" name="Students_Parent_Email"><br>
       <input placeholder="Password" type="password" name="Student_Pass"><br>
@@ -62,8 +62,8 @@ function show(shown, hidden) {
 
       <label>
         Role:
-        <select>
-          <option value="No">No</option>
+        <select name='s_role'>
+          <option value="None">None</option>
           <option value="Mentor">Moderator</option>
           <option value="Mentee">Mentee</option>
           <option value="Both">Both</option>
@@ -72,7 +72,7 @@ function show(shown, hidden) {
       </br>
       <label>
         Grade:
-        <select>
+        <select name='s_grade'>
           <option value="Freshman">Freshman</option>
           <option value="Sophomore">Sophomore</option>
           <option value="Junior">Junior</option>
@@ -83,11 +83,9 @@ function show(shown, hidden) {
 
       <input placeholder="Name" type="text" name="Student_Name"><br>
       <input placeholder="Phone Number" type="text" name="Student_Phone_Number"><br>
-      <input placeholder="City" type="text" name="Student_City"><br>
-      <input placeholder="State" type="text" name="Student_State"><br>
+      <input placeholder="Username" type="text" name="s_username"><br>
       <button onclick="document.getElementById('Student_Name').value=''">Submit</button>
     </form>
-
   </div>
 
   <div id="Student_Login" style="display:none">
