@@ -24,15 +24,15 @@ function show(shown, hidden) {
 
     <h1>Parent Register</h1>
 
-    <form>
+    <form action='php/register-parent.php' method='POST'>
       <input placeholder="Enter your email" type="text" name="Parent_Email"><br>
       <input placeholder="Password" type="password" name="Parent_Pass"><br>
       <input placeholder="Confirm password" type="password" name="Parent_Confirm_Pass"><br>
 
       <label>
         Role:
-        <select>
-          <option value="No">No</option>
+        <select name='p_role'>
+          <option value="None">None</option>
           <option value="Moderator">Moderator</option>
         </select>
       </label>
@@ -40,8 +40,7 @@ function show(shown, hidden) {
 
       <input placeholder="Name" type="text" name="Parent_Name"><br>
       <input placeholder="Phone Number" type="text" name="Parent_Phone_Number"><br>
-      <input placeholder="City" type="text" name="Parent_City"><br>
-      <input placeholder="State" type="text" name="Parent_State"><br>
+      <input placeholder="Username" type="text" name="p_username"><br>
       <button onclick="document.getElementById('Parent_Name').value=''">Submit</button>
     </form>
 
