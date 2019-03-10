@@ -14,8 +14,8 @@
   # determine next available id
   $max_id_query = "SELECT MAX(uID) FROM User";
   $result1 = mysqli_query($myconnection, $max_id_query) or die ('Query failed: ' . mysqli_error($myconnection));
-  if ($result1){
-    $row = mysqli_fetch_row($result1);
+  $row = mysqli_fetch_row($result1);
+  if ($row){
     $p_id = $row[0] + 1;
   } else {
     $p_id = 1;
@@ -23,9 +23,13 @@
   mysqli_free_result($result1);
 
   # insert into user table
-  $insert_user_query = "INSERT INTO User VALUES ($p_id, \"{$p_name}\", \"{$p_email}\", \"{$p_phone}\", \"{$p_username}\", \"{$p_pass}\", \"{$p_role}\");";
+  $insert_user_query = "INSERT INTO User VALUES ({$p_id}, \"{$p_name}\", \"{$p_email}\", \"{$p_phone}\", \"{$p_username}\", \"{$p_pass}\", \"{$p_role}\");";
   $result2 = mysqli_query($myconnection, $insert_user_query) or die ('Query failed: ' . mysqli_error($myconnection));
-
+  
+  #inser into parent table
+  $insert_parent_query = "INSERT INTO Parent VALUES ({$p_id});";
+  $result2 = mysqli_query($myconnection, $insert_parent_query) or die ('Query failed: ' . mysqli_error($myconnection));
+  
   # insert into moderator table
   if ($p_role === 'Moderator') {
     $insert_moderator_query = "INSERT INTO Moderator VALUES($p_id);";
