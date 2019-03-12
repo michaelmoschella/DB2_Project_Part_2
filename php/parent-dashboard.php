@@ -1,13 +1,12 @@
 <?php
     session_start();
-    $p_email = $_POST['Parent_Email_Login']; 
-    $p_pass = $_POST['Parent_Pass_Login']; 
-
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
-
-    $get_pass_query = "SELECT password, username, uID FROM User WHERE email = \"{$p_email}\" AND uID IN 
+    echo("<h1>The ID: </h1>");
+    echo($_SESSION['uID']);
+    
+    /*$get_pass_query = "SELECT password, username, uID FROM User WHERE email = \"{$p_email}\" AND uID IN 
     (SELECT pID FROM Parent);";
     $result1 = mysqli_query($myconnection, $get_pass_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);
@@ -28,9 +27,7 @@
             <h3><a href='../useless.html'>Back to main page</a></h3>");
     }
     mysqli_free_result($result1);
-
+*/
     mysqli_close($myconnection);
     exit;
 ?>
-
-
