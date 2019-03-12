@@ -36,10 +36,9 @@
     $result3 = mysqli_query($myconnection, $insert_moderator_query) or die ('Query failed: ' . mysqli_error($myconnection));
   }
   
-  mysqli_close($myconnection);
+  echo("<h1>Congratulations {$p_username}, you have successfully registered</h1>
+    <h3><a href='../useless.html'>Back to main page</a></h3>");
 
-  # this points the browser back to useless.html, we may need to use echo instead
-  # or figure out another way to indicate to the user that the registration was successful. 
-  header('location: ../useless.html');
+  mysqli_close($myconnection);. 
   exit;
 ?>

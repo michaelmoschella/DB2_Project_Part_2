@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS `Mentor`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `User`;
 
+/* User Table***********************************************/
 CREATE TABLE `User` (
 	`uID` INT,
 	`name` CHAR(50),
@@ -28,13 +29,22 @@ CREATE TABLE `User` (
 	PRIMARY KEY (`uID`),
 	UNIQUE (`email`)
 ) DEFAULT CHARSET = utf8;
-/*INSERT INTO User
-VALUES (1, 'Billy Bob', 'bb@fake.com', '617-994-5233', 'bb', '123456', 'P');
 INSERT INTO User
-VALUES (2, 'Betty Bob', 'bettyb@fake.com', '666-666-5666', 'bettyb', '987654', 'S');
+VALUES (1, 'Billy', 'billy@billy.com', '617-994-5233', 'bill', 'password', 'P');
 INSERT INTO User
-VALUES (3, 'Bobby Bob', 'bobbyb@fake.com', '777-777-5777', 'bobbyb', '99999', 'S');
-*/
+VALUES (2, 'Betty', 'betty@betty.com', '666-666-5666', 'bettyb', 'password', 'S');
+INSERT INTO User
+VALUES (3, 'Bobby', 'bobby@bobby.com', '777-777-5777', 'boss', 'password', 'S');
+INSERT INTO User
+VALUES (4, 'Becky', 'becky@becky.com', '999-999-9999', 'becky', 'password', 'P');
+INSERT INTO User
+VALUES (5, 'Bart', 'bart@bart.com', '888-888-8888', 'bart', 'password', 'S');
+INSERT INTO User
+VALUES (6, 'Ben', 'ben@ben.com', '555-555-5555', 'ben', 'password', 'S');
+
+
+
+/* Student Table *****************************************************/
 CREATE TABLE `Student` (
 	`sID` INT,
 	`grade` CHAR(50),
@@ -42,41 +52,52 @@ CREATE TABLE `Student` (
 	PRIMARY KEY (`sID`),
 	CONSTRAINT FOREIGN KEY (`sID`) REFERENCES User(`uID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
+INSERT INTO Student VALUES (2, 'Freshman');
+INSERT INTO Student VALUES (3, 'Sophomore');
+INSERT INTO Student VALUES (5, 'Junior');
+INSERT INTO Student VALUES (6, 'Senior');
 
+
+/* Mentor Table ********************************************************/
 CREATE TABLE `Mentor` (
 	`orID` INT,
 
 	PRIMARY KEY (`orID`),
 	CONSTRAINT FOREIGN KEY (`orID`) REFERENCES Student(`sID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
-/*INSERT INTO Mentor
-VALUES (2, 10);*/
+INSERT INTO Mentor VALUES (5);
+INSERT INTO Mentor VALUES (6);
 
+/* Mentee Table ********************************************************/
 CREATE TABLE `Mentee` (
 	`eeID` INT,
 	
 	PRIMARY KEY (`eeID`),
 	CONSTRAINT `b` FOREIGN KEY (`eeID`) REFERENCES Student(`sID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
-/*INSERT INTO Mentee
-VALUES (3, 7);*/
+INSERT INTO Mentor VALUES (2);
+INSERT INTO Mentor VALUES (3);
 
+/* Parent Table *********************************************************/
 CREATE TABLE `Parent` (
 	`pID` INT,
 
 	PRIMARY KEY (`pID`),
 	CONSTRAINT FOREIGN KEY (`pID`) REFERENCES User(`uID`)
 ) DEFAULT CHARSET = utf8;
+INSERT INTO Parent VALUES (1);
+INSERT INTO Parent VALUES (4);
 
+/* Moderator Table ***********************************************************/
 CREATE TABLE `Moderator` (
 	modID INT,
 	
 	PRIMARY KEY (modID),
 	CONSTRAINT `assign_modID` FOREIGN KEY (modID) REFERENCES `User`(uID) ON DELETE CASCADE 
 ) DEFAULT CHARSET = utf8;
-/*INSERT INTO Moderator
-VALUES (1);*/
+INSERT INTO Moderator VALUES (4);
 
+/* Family Table ****************************************************************/
 CREATE TABLE `Family` (
 	`pID` INT,
 	`sID` INT,
@@ -85,6 +106,10 @@ CREATE TABLE `Family` (
 	CONSTRAINT `c` FOREIGN KEY (`pID`) REFERENCES User(`uID`) ON DELETE CASCADE,
 	CONSTRAINT `d` FOREIGN KEY (`sID`) REFERENCES User(`uID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
+INSERT INTO Family VALUES (1, 2);
+INSERT INTO Family VALUES (1, 3);
+INSERT INTO Family VALUES (4, 5);
+INSERT INTO Family VALUES (4, 6);
 
 CREATE TABLE `Course` (
 	`cID` INT,

@@ -15,16 +15,19 @@
     $p_stored_pass = $row[0];
     $p_username = $row[1];
     if ($p_stored_pass == $p_pass) {
-        echo("Hello {$p_username}");
+        echo("<h1>Welcome {$p_username}, you have successfully logged in!</h1>
+            <h3><a href='../useless.html'>To your dashboard</a></h3>"); #FIX THIS LINK!!!!!
     } else {
-        echo('The provided password is incorrect');
+        echo("<h1>Sorry, the provided password does not match the account for {$p_email}</h1>
+        <h3><a href='../useless.html'>Back to main page</a></h3>");
     }
   } else {
-    echo('This email is not registered to a parent in our Database');
+    echo("<h1>Sorry, the email address {$p_email} is not registered to a parent in our Database</h1>
+        <h3><a href='../useless.html'>Back to main page</a></h3>");
   }
   mysqli_free_result($result1);
-  mysqli_close($myconnection);
 
+  mysqli_close($myconnection);
   exit;
 ?>
 
