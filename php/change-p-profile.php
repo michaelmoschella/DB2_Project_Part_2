@@ -12,7 +12,7 @@
     $row = mysqli_fetch_row($result1);
     mysqli_free_result($result1);
     
-    echo('<h1>Change Your Profile as Parent User</h1>');
+    echo('<h1>Change Your Profile as a Parent User</h1>');
     
     $html_string = "<form action='p-profile-altered.php' method='POST'>
         <label>

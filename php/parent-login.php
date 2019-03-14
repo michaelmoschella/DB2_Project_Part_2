@@ -18,7 +18,7 @@
             $_SESSION["active_ID"] = $row[2];
             echo("<h1>Welcome {$p_username}, you have successfully logged in!</h1>
                 <h3><a href='./parent-dashboard.php'>Click here to go to your parent dashboard</a></h3>
-                <h5><a href='../useless.html'>Logout?</a></h5>");
+                <h5><a href='./logout.php'>Logout</a></h5>");
                 
         } else {
             echo("<h1>Sorry, the provided password does not match the account for {$p_email}</h1>
