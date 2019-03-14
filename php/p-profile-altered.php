@@ -38,7 +38,7 @@
     echo(
         "<h1>Your profile was successfully updated!</h1>
         <h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>
-        <h3><a>Logout</a>"
+        <h3><a href='logout.php'>Logout</a>"
     );
 
     mysqli_close($myconnection);

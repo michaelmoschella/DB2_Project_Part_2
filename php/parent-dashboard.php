@@ -47,15 +47,16 @@
     $get_children_query = "SELECT name, role, uid FROM User, Family WHERE Family.pID = {$active_id} AND Family.sID = User.uID;"; 
     $result2 = mysqli_query($myconnection, $get_children_query) or die ('Query failed: ' . mysqli_error($myconnection));
     while ($row = mysqli_fetch_row($result2)) {
+        # pass childs uID through link
         $html_string .= " <tr>
         <td>{$row[0]}</td>
         <td>Student</td>
-        <td><a href=''>Change Your Child's Profile</a></td>
+        <td><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></td>
         </tr> ";
     }
     mysqli_free_result($result2);
     echo($html_string);
-    echo('<h3><a>Logout</a></h3>');
+    echo('<h3><a href="logout.php">Logout</a></h3>');
 
     mysqli_close($myconnection);
     exit;

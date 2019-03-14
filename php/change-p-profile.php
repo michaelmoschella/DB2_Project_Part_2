@@ -22,7 +22,7 @@
 
         <label>
             Username:
-            <input placeholder='{$row[1]}' type='password' name='p_username'><br>
+            <input placeholder='{$row[1]}' type='text' name='p_username'><br>
         </label>
         
         <label>
@@ -50,12 +50,12 @@
                 <option value='Moderator'>Moderator</option>
             </select><br>
         </label>
-            <button>Make Changes</button>
+            <button>Submit Changes</button>
         </form>";
 
     echo($html_string);
     echo("<h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>");
-    echo("<h3><a>Logout</a><h3>");
+    echo("<h3><a href='logout.php'>Logout</a><h3>");
 
     mysqli_close($myconnection);
     exit;
