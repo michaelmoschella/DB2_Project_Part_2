@@ -274,7 +274,7 @@ VALUES (8, 2, 4, '17:00', '18:00', 'Tu, Th');
 INSERT INTO Schedule 
 VALUES (9, 1, 5, '18:00', '19:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (10, 2, 5, '2019-09-01', '2019-12-01', '18:00', '19:00', 'Tu, Th');
+VALUES (10, 2, 5, '18:00', '19:00', 'Tu, Th');
 
  
 CREATE TABLE `Learns` (
