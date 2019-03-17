@@ -1,3 +1,5 @@
+\W /* Show Warnings */
+
 DROP TABLE IF EXISTS `SessionMat`;
 DROP TABLE IF EXISTS `Material`;
 DROP TABLE IF EXISTS `Learns`;
@@ -111,16 +113,28 @@ INSERT INTO Family VALUES (1, 3);
 INSERT INTO Family VALUES (4, 5);
 INSERT INTO Family VALUES (4, 6);
 
+/* Course Table ******************************************************************/
 CREATE TABLE `Course` (
 	`cID` INT,
 	`title` CHAR(50),
 	`description` CHAR(255),
-	`orReq` INT,
-	`eeReq` INT,
+	`orReq` CHAR(50),
+	`eeReq` CHAR(50),
 	
 	PRIMARY KEY (`cID`)
 ) DEFAULT CHARSET = utf8;
-
+INSERT INTO Course 
+VALUES (1, 'Exploring the Solar System', 'Learn About the wonderful components that make up our solar systems', 'Junior', 'Freshman');
+INSERT INTO Course 
+VALUES (2, 'Metaphysics', 'A study about our understanding of physics and the nature of reality', 'Junior', 'Freshman');
+INSERT INTO Course 
+VALUES (3, 'Physics', 'Learn about the fundamental laws of physics.', 'Junior', 'Sophmore');
+INSERT INTO Course 
+VALUES (4, 'Advanced Rocketry', 'In this course We will be building a rocket and flying to the moon.', 'Senior', 'Junior');
+INSERT INTO Course 
+VALUES (5, 'Humility', 'In this course Seniors will learn valuable life lessons from their younger peers.', 'Freshman', 'Senior');
+ 
+/* Section Table ************************************************************/
 CREATE TABLE `Section` (
 	`secID` INT,
 	`cID` INT,
@@ -134,6 +148,28 @@ CREATE TABLE `Section` (
 	CONSTRAINT `e` FOREIGN KEY (`cID`) REFERENCES Course(`cID`) ON DELETE CASCADE,
 	UNIQUE (`schedID`)
 ) DEFAULT CHARSET = utf8;
+INSERT INTO Section 
+VALUES (1, 1, 1, "Solar System s1", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (2, 1, 2, "Solar System s2", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (1, 2, 3, "metaphysics s1", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (2, 2, 4, "metaphysics s2", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (1, 3, 5, "Physics s1", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (2, 3, 6, "Physics s2", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (1, 4, 7, "Rocketry s1", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (2, 4, 8, "Rocketry s2", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (1, 5, 9, "Humility s1", 7, 7.00, 7.00);
+INSERT INTO Section 
+VALUES (2, 5, 10, "Humility s2", 7, 7.00, 7.00);
+
+ 
 
 CREATE TABLE `Record` (
 	`uID` INT,
@@ -169,6 +205,7 @@ CREATE TABLE `Review` (
 	CONSTRAINT `l` FOREIGN KEY (`cID`) REFERENCES Section(`cID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
 
+/* Session Table ******************************************************************/
 CREATE TABLE `Session` (
 	`sesID` INT,
 	`secID` INT,
@@ -181,7 +218,29 @@ CREATE TABLE `Session` (
 	CONSTRAINT FOREIGN KEY (`secID`) REFERENCES Section(`secID`),
 	CONSTRAINT FOREIGN KEY (`cID`) REFERENCES Section(`cID`)
 ) DEFAULT CHARSET = utf8;
+INSERT INTO `Session` 
+VALUES (1, 2, 1, "Exploring the Sun", '2019-09-03', "Bring binoculars!");
+INSERT INTO `Session` 
+VALUES (2, 2, 1, "Exploring the Moon", '2019-09-05', "Bring crackers!");
+INSERT INTO `Session` 
+VALUES (1, 2, 2, "Contemplating Space", '2019-09-03', "Bring a ruler!");
+INSERT INTO `Session` 
+VALUES (2, 2, 2, "Contemplating Time", '2019-09-05', "Bring a watch!");
+INSERT INTO `Session` 
+VALUES (1, 2, 3, "Understanding Gravity", '2019-09-03', "Bring an apple!");
+INSERT INTO `Session` 
+VALUES (2, 2, 3, "Understanding Light", '2019-09-05', "Bring a lamp!");
+INSERT INTO `Session` 
+VALUES (1, 2, 4, "Basics of thrust", '2019-09-03', "Bring your rocket fuel!");
+INSERT INTO `Session` 
+VALUES (2, 2, 4, "Launch Day", '2019-09-05', "Bring your spacesuit!");
+INSERT INTO `Session` 
+VALUES (1, 2, 5, "Life Lessons", '2019-09-03', "Don't forget your humility!");
+INSERT INTO `Session` 
+VALUES (2, 2, 5, "Death Lessons", '2019-09-05', "Make sure your bucket is full!");
 
+
+/* Schedule Table *********************************************************/
 CREATE TABLE `Schedule` (
 	`schedID` INT,
 	`secID` INT,
@@ -196,7 +255,28 @@ CREATE TABLE `Schedule` (
 	CONSTRAINT FOREIGN KEY (`secID`) REFERENCES Section(`secID`),
 	CONSTRAINT FOREIGN KEY (`cID`) REFERENCES Section(`cID`)
 ) DEFAULT CHARSET = utf8;
+INSERT INTO Schedule 
+VALUES (1, 1, 1, '2018-09-01', '2018-12-01', '16:00', '17:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (2, 2, 1, '2019-09-01', '2019-12-01', '16:00', '17:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (3, 1, 2, '2018-09-01', '2018-12-01', '16:00', '17:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (4, 2, 2, '2019-09-01', '2019-12-01', '16:00', '17:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (5, 1, 3, '2018-09-01', '2018-12-01', '17:00', '18:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (6, 2, 3, '2019-09-01', '2019-12-01', '17:00', '18:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (7, 1, 4, '2018-09-01', '2018-12-01', '17:00', '18:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (8, 2, 4, '2019-09-01', '2019-12-01', '17:00', '18:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (9, 1, 5, '2018-09-01', '2018-12-01', '18:00', '19:00', 'Tu, Th');
+INSERT INTO Schedule 
+VALUES (10, 2, 5, '2019-09-01', '2019-12-01', '18:00', '19:00', 'Tu, Th');
 
+ 
 CREATE TABLE `Learns` (
 	`secID` INT,
 	`cID` INT,
