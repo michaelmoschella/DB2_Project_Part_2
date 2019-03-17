@@ -7,7 +7,7 @@
     $s_name = $_POST['Student_Name'];
     $s_phone = $_POST['Student_Phone_Number'];
     $s_username = $_POST['s_username'];
-    $s_grade = $_POST['s_grade'];
+    $s_grade = (int)$_POST['s_grade'];
 
     $myconnection = mysqli_connect('localhost', 'root', '')
         or die ('Could not connect: ' . mysqli_error());
@@ -38,7 +38,7 @@
         $insert_family_query = "INSERT INTO Family VALUES ({$p_id}, {$s_id});";
         $result7 = mysqli_query($myconnection, $insert_family_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
-        $insert_student_query = "INSERT INTO Student VALUES ({$s_id}, \"{$s_grade}\");";
+        $insert_student_query = "INSERT INTO Student VALUES ({$s_id}, {$s_grade});";
         $result6 = mysqli_query($myconnection, $insert_student_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
         if ($s_role === 'Mentor' || $s_role === 'Both' ) {

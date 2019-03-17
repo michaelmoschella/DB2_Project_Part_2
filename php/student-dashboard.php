@@ -48,7 +48,7 @@
         <tr>
             <td>Student</td>
             <td>Section</td>
-            <td><a href=''>View Sections</a></td>
+            <td><a href='student-view-sections.php'>View Sections</a></td>
         </tr>
         <tr>
             <td>Mentor</td>

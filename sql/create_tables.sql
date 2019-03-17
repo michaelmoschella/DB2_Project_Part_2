@@ -49,15 +49,15 @@ VALUES (6, 'Ben', 'ben@ben.com', '555-555-5555', 'ben', 'password', 'S');
 /* Student Table *****************************************************/
 CREATE TABLE `Student` (
 	`sID` INT,
-	`grade` CHAR(50),
+	`grade` INT,
 
 	PRIMARY KEY (`sID`),
 	CONSTRAINT FOREIGN KEY (`sID`) REFERENCES User(`uID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
-INSERT INTO Student VALUES (2, 'Freshman');
-INSERT INTO Student VALUES (3, 'Sophomore');
-INSERT INTO Student VALUES (5, 'Junior');
-INSERT INTO Student VALUES (6, 'Senior');
+INSERT INTO Student VALUES (2, 9);
+INSERT INTO Student VALUES (3, 10);
+INSERT INTO Student VALUES (5, 11);
+INSERT INTO Student VALUES (6, 12);
 
 
 /* Mentor Table ********************************************************/
@@ -118,21 +118,21 @@ CREATE TABLE `Course` (
 	`cID` INT,
 	`title` CHAR(50),
 	`description` CHAR(255),
-	`orReq` CHAR(50),
-	`eeReq` CHAR(50),
+	`orReq` INT,
+	`eeReq` INT,
 	
 	PRIMARY KEY (`cID`)
 ) DEFAULT CHARSET = utf8;
 INSERT INTO Course 
-VALUES (1, 'Exploring the Solar System', 'Learn About the wonderful components that make up our solar systems', 'Junior', 'Freshman');
+VALUES (1, 'Exploring the Solar System', 'Learn About the wonderful components that make up our solar systems', 11, 9);
 INSERT INTO Course 
-VALUES (2, 'Metaphysics', 'A study about our understanding of physics and the nature of reality', 'Junior', 'Freshman');
+VALUES (2, 'Metaphysics', 'A study about our understanding of physics and the nature of reality', 11, 9);
 INSERT INTO Course 
-VALUES (3, 'Physics', 'Learn about the fundamental laws of physics.', 'Junior', 'Sophmore');
+VALUES (3, 'Physics', 'Learn about the fundamental laws of physics.', 11, 10);
 INSERT INTO Course 
-VALUES (4, 'Advanced Rocketry', 'In this course We will be building a rocket and flying to the moon.', 'Senior', 'Junior');
+VALUES (4, 'Advanced Rocketry', 'In this course We will be building a rocket and flying to the moon.', 12, 11);
 INSERT INTO Course 
-VALUES (5, 'Humility', 'In this course Seniors will learn valuable life lessons from their younger peers.', 'Freshman', 'Senior');
+VALUES (5, 'Humility', 'In this course Seniors will learn valuable life lessons from their younger peers.', 9, 12);
  
 /* Section Table ************************************************************/
 CREATE TABLE `Section` (
@@ -151,25 +151,25 @@ CREATE TABLE `Section` (
 	UNIQUE (`schedID`)
 ) DEFAULT CHARSET = utf8;
 INSERT INTO Section 
-VALUES (1, 1, 1, "Solar System s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
+VALUES (1, 1, 1, "Section 1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 1, 2, "Solar System s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
+VALUES (2, 1, 2, "Section 2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 2, 3, "metaphysics s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
+VALUES (1, 2, 3, "Section 1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 2, 4, "metaphysics s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
+VALUES (2, 2, 4, "Section 2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 3, 5, "Physics s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
+VALUES (1, 3, 5, "Section 1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 3, 6, "Physics s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
+VALUES (2, 3, 6, "Section 2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 4, 7, "Rocketry s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
+VALUES (1, 4, 7, "Section 1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 4, 8, "Rocketry s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
+VALUES (2, 4, 8, "Section 2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 5, 9, "Humility s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
+VALUES (1, 5, 9, "Section 1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 5, 10, "Humility s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
+VALUES (2, 5, 10, "Section 2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 
  
 
