@@ -39,6 +39,6 @@
   echo("<h1>Congratulations {$p_username}, you have successfully registered</h1>
     <h3><a href='../useless.html'>Back to main page</a></h3>");
 
-  mysqli_close($myconnection);. 
+  mysqli_close($myconnection); 
   exit;
 ?>
