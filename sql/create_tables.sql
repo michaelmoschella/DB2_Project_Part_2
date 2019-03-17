@@ -143,31 +143,33 @@ CREATE TABLE `Section` (
 	`capacity` INT,
 	`tuition` FLOAT,
 	`salary` FLOAT,
+	`startDate` DATE,
+	`endDate` DATE,
 
 	PRIMARY KEY (`secID`, `cID`),
 	CONSTRAINT `e` FOREIGN KEY (`cID`) REFERENCES Course(`cID`) ON DELETE CASCADE,
 	UNIQUE (`schedID`)
 ) DEFAULT CHARSET = utf8;
 INSERT INTO Section 
-VALUES (1, 1, 1, "Solar System s1", 7, 7.00, 7.00);
+VALUES (1, 1, 1, "Solar System s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 1, 2, "Solar System s2", 7, 7.00, 7.00);
+VALUES (2, 1, 2, "Solar System s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 2, 3, "metaphysics s1", 7, 7.00, 7.00);
+VALUES (1, 2, 3, "metaphysics s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 2, 4, "metaphysics s2", 7, 7.00, 7.00);
+VALUES (2, 2, 4, "metaphysics s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 3, 5, "Physics s1", 7, 7.00, 7.00);
+VALUES (1, 3, 5, "Physics s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 3, 6, "Physics s2", 7, 7.00, 7.00);
+VALUES (2, 3, 6, "Physics s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 4, 7, "Rocketry s1", 7, 7.00, 7.00);
+VALUES (1, 4, 7, "Rocketry s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 4, 8, "Rocketry s2", 7, 7.00, 7.00);
+VALUES (2, 4, 8, "Rocketry s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 INSERT INTO Section 
-VALUES (1, 5, 9, "Humility s1", 7, 7.00, 7.00);
+VALUES (1, 5, 9, "Humility s1", 7, 7.00, 7.00, '2018-09-01', '2018-12-01');
 INSERT INTO Section 
-VALUES (2, 5, 10, "Humility s2", 7, 7.00, 7.00);
+VALUES (2, 5, 10, "Humility s2", 7, 7.00, 7.00, '2019-09-01', '2019-12-01');
 
  
 
@@ -245,8 +247,6 @@ CREATE TABLE `Schedule` (
 	`schedID` INT,
 	`secID` INT,
 	`cID` INT,
-	`startDate` DATE,
-	`endDate` DATE,
 	`startTime` TIME,
 	`endTime` TIME,
 	`days` CHAR(20),
@@ -256,23 +256,23 @@ CREATE TABLE `Schedule` (
 	CONSTRAINT FOREIGN KEY (`cID`) REFERENCES Section(`cID`)
 ) DEFAULT CHARSET = utf8;
 INSERT INTO Schedule 
-VALUES (1, 1, 1, '2018-09-01', '2018-12-01', '16:00', '17:00', 'Tu, Th');
+VALUES (1, 1, 1, '16:00', '17:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (2, 2, 1, '2019-09-01', '2019-12-01', '16:00', '17:00', 'Tu, Th');
+VALUES (2, 2, 1, '16:00', '17:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (3, 1, 2, '2018-09-01', '2018-12-01', '16:00', '17:00', 'Tu, Th');
+VALUES (3, 1, 2, '16:00', '17:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (4, 2, 2, '2019-09-01', '2019-12-01', '16:00', '17:00', 'Tu, Th');
+VALUES (4, 2, 2, '16:00', '17:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (5, 1, 3, '2018-09-01', '2018-12-01', '17:00', '18:00', 'Tu, Th');
+VALUES (5, 1, 3, '17:00', '18:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (6, 2, 3, '2019-09-01', '2019-12-01', '17:00', '18:00', 'Tu, Th');
+VALUES (6, 2, 3, '17:00', '18:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (7, 1, 4, '2018-09-01', '2018-12-01', '17:00', '18:00', 'Tu, Th');
+VALUES (7, 1, 4, '17:00', '18:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (8, 2, 4, '2019-09-01', '2019-12-01', '17:00', '18:00', 'Tu, Th');
+VALUES (8, 2, 4, '17:00', '18:00', 'Tu, Th');
 INSERT INTO Schedule 
-VALUES (9, 1, 5, '2018-09-01', '2018-12-01', '18:00', '19:00', 'Tu, Th');
+VALUES (9, 1, 5, '18:00', '19:00', 'Tu, Th');
 INSERT INTO Schedule 
 VALUES (10, 2, 5, '2019-09-01', '2019-12-01', '18:00', '19:00', 'Tu, Th');
 
