@@ -82,7 +82,7 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>
-                    <td><button onClick='mentor-candidate-list.php'>Assign Mentor</button></td></tr>
+                    <td><form action='mentor-candidate-list.php'><input type='submit' value='Assign Mentor'></form></td></tr>
                     <tr>
                       <th colspan='4' style = 'text-align: center;''>Session Info</th>
                       <th colspan = '2'>Session ID</th>
@@ -104,7 +104,7 @@
                       <td>H</td>
                       <td>I</td>
                       <td>J</td>
-                      <td><button onclick='post-materials.php'>Post</button></td>
+                      <td><form action='post-materials.php'><input type='submit' value='Post'></form></td></td>
                     </tr>";}
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "
