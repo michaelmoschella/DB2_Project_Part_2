@@ -81,7 +81,8 @@
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td>0</td>
-                    <td>0</td>";
+                    <td>0</td>
+                    <td><button onClick=''>Moderate</button></td>";
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "
             ##            <td><button onClick=''>Teach</button></td>
