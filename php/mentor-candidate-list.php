@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    $c_ID = $_GET['cID']; # get parameter from link
+    $sec_ID = $_GET['secID']; # get parameter from link
     echo(
         "<h1>{$c_ID}</h1>"
     );
