@@ -82,15 +82,18 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>
-                    <td><button onClick=''>Moderate</button></td></tr>
+                    <td><button onClick=''>Assign Mentor</button></td></tr>
                     <tr>
                       <th colspan='4' style = 'text-align: center;''>Session Info</th>
                       <th colspan = '2'>Session ID</th>
                       <th colspan = '2'>Session Name</th>
                       <th colspan = '2'>Date</th>
                       <th></th>
-                    </tr>
-                    <tr>
+                    </tr>";
+                    $myInt = 0;
+                    while ($myInt<10){
+                      $myInt++;
+                        $html_string .= "<tr>
                       <td>A</td>
                       <td>B</td>
                       <td>C</td>
@@ -102,7 +105,7 @@
                       <td>I</td>
                       <td>J</td>
                       <td><button onclick=''>Post</button></td>
-                    </tr>";
+                    </tr>";}
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "
             ##            <td><button onClick=''>Teach</button></td>
