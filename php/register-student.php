@@ -54,7 +54,7 @@
             # Do we need to handle when one of the queries fails????????????????????????????
 
             echo("<h1>Congratulations {$s_username}, you have successfully registered!</h1>
-            <h3><a href='../useless.html'>Back to main page</a></h3>");
+            <h3><a href='../not_useless.html'>Back to main page</a></h3>");
         }
     } else {
         # parent not found in database
