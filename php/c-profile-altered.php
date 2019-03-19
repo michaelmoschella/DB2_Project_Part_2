@@ -8,6 +8,10 @@
     $c_phone = $_POST['Parent_Children_Phone_Number'];
     $c_username = $_POST['c_username'];
 
+    if ($c_role == 'None') {
+        $c_role = 'Student';
+    }
+
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');

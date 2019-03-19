@@ -32,6 +32,9 @@
     if ($row){
         $p_id = $row[0];
 
+        if ($s_role == 'None') {
+            $s_role = 'Student';
+        }
         $insert_user_query = "INSERT INTO User VALUES ({$s_id}, \"{$s_name}\", \"{$s_email}\", \"{$s_phone}\", \"{$s_username}\", \"{$s_pass}\", \"$s_role\");";
         $result3 = mysqli_query($myconnection, $insert_user_query) or die ('Query failed: ' . mysqli_error($myconnection));
 

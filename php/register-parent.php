@@ -23,6 +23,9 @@
   mysqli_free_result($result1);
 
   # insert into user table
+  if ($p_role == 'None') {
+    $p_role = 'Parent';
+  }
   $insert_user_query = "INSERT INTO User VALUES ({$p_id}, \"{$p_name}\", \"{$p_email}\", \"{$p_phone}\", \"{$p_username}\", \"{$p_pass}\", \"{$p_role}\");";
   $result2 = mysqli_query($myconnection, $insert_user_query) or die ('Query failed: ' . mysqli_error($myconnection));
 

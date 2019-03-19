@@ -9,6 +9,10 @@
     $p_phone = $_POST['Parent_Phone_Number'];
     $p_username = $_POST['p_username'];
 
+    if ($p_role == 'None') {
+        $p_role = 'Parent';
+    }
+
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');

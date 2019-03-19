@@ -32,17 +32,17 @@ CREATE TABLE `User` (
 	UNIQUE (`email`)
 ) DEFAULT CHARSET = utf8;
 INSERT INTO User
-VALUES (1, 'Billy', 'billy@billy.com', '617-994-5233', 'bill', 'password', 'P');
+VALUES (1, 'Billy', 'billy@billy.com', '617-994-5233', 'bill', 'password', 'Parent');
 INSERT INTO User
-VALUES (2, 'Betty', 'betty@betty.com', '666-666-5666', 'bettyb', 'password', 'S');
+VALUES (2, 'Betty', 'betty@betty.com', '666-666-5666', 'bettyb', 'password', 'Mentee');
 INSERT INTO User
-VALUES (3, 'Bobby', 'bobby@bobby.com', '777-777-5777', 'boss', 'password', 'S');
+VALUES (3, 'Bobby', 'bobby@bobby.com', '777-777-5777', 'boss', 'password', 'Mentee');
 INSERT INTO User
-VALUES (4, 'Becky', 'becky@becky.com', '999-999-9999', 'becky', 'password', 'P');
+VALUES (4, 'Becky', 'becky@becky.com', '999-999-9999', 'becky', 'password', 'Moderator');
 INSERT INTO User
-VALUES (5, 'Bart', 'bart@bart.com', '888-888-8888', 'bart', 'password', 'S');
+VALUES (5, 'Bart', 'bart@bart.com', '888-888-8888', 'bart', 'password', 'Mentor');
 INSERT INTO User
-VALUES (6, 'Ben', 'ben@ben.com', '555-555-5555', 'ben', 'password', 'S');
+VALUES (6, 'Ben', 'ben@ben.com', '555-555-5555', 'ben', 'password', 'Mentor');
 
 
 

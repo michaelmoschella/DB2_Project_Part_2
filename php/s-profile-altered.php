@@ -9,6 +9,10 @@
     $s_phone = $_POST['Student_Phone_Number'];
     $s_username = $_POST['s_username'];
 
+    if ($s_role == 'None') {
+        $s_role = 'Student';
+    }
+
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');

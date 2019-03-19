@@ -1,11 +1,18 @@
 <?php
     session_start();
-    
+  
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
     
     $active_id = $_SESSION['active_ID'];
+    $c_id = $_GET['cID'];
+    $sec_id = $_GET['secID'];
+
+    echo("<h1>{$active_id}</h1>");
+    echo("<h1>{$c_id}</h1>");
+    echo("<h1>{$sec_id}</h1>");
+/*
     $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
     $result2 = mysqli_query($myconnection, $get_student_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result2);
@@ -27,8 +34,7 @@
 
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
         Section.name, Section.capacity, Section.startDate, Section.endDate,
-        Schedule.startTime, Schedule.endTime, Schedule.days,
-        Course.cID, Section.SecID 
+        Schedule.startTime, Schedule.endTime, Schedule.days 
         FROM Course, Section, Schedule 
         WHERE Course.cID = Section.cID AND
             Section.schedID = Schedule.schedID;";
@@ -91,7 +97,7 @@
                     $html_string .= "<td>N/A</td>";
                 }
                 if ($s_grade >= $row[2] && $mentee){
-                    $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
+                    $html_string .= "<td><button onClick=''>Enroll</button></td>";
                 } else {
                     $html_string .= "<td>N/A</td>";
                 }
@@ -100,15 +106,17 @@
     mysqli_free_result($result1);
     $html_string .= "</table>";
     echo($html_string);
+*/
    /* $get_info_query = "SELECT name, role, grade FROM User, Student WHERE {$active_id} = uID AND Student.sID = User.uID;";
    $result2 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
    mysqli_free_result($result2);
    */
 
-  
+/*  
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
-
+*/
     mysqli_close($myconnection);
     exit;
 ?>
+
