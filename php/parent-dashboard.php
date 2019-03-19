@@ -60,7 +60,7 @@
       $html_string .= "<tr>
         <td>Parent</td>
         <td>Section</td>
-        <td><a href=''>View Sections</a></td>
+        <td><a href='parent-view-sections.php'>View Sections</a></td>
       </tr>
       <tr>
         <td>Moderator</td>
