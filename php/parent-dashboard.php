@@ -65,7 +65,7 @@
       <tr>
         <td>Moderator</td>
         <td>Moderator</td>
-        <td><a href=''>View Moderator</a></td>
+        <td><a href='parent-moderate-section-session.php'>View Moderator</a></td>
       </tr>
       ";
     }
