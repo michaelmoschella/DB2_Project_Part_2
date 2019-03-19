@@ -54,6 +54,7 @@
         <td><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></td>
         </tr> ";
     }
+    
     mysqli_free_result($result2);
     echo($html_string);
     echo('<h3><a href="logout.php">Logout</a></h3>');
