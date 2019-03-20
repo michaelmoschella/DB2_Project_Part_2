@@ -4,7 +4,7 @@
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
-    
+    $todays_date = new DateTime(date("Y-m-d"));
     $active_id = $_SESSION['active_ID'];
     $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
     $result2 = mysqli_query($myconnection, $get_student_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
@@ -13,7 +13,7 @@
     $s_role = $row[1];
     if ($s_role == 'Both') {
         $mentor = true;
-        $mentee = false;
+        $mentee = true;
     } else if ($s_role == 'Mentor') {
         $mentor = true;
         $mentee = false;
@@ -71,6 +71,15 @@
             </tr>";
                     
             while ($row = mysqli_fetch_row($result1)){
+                $is_mentor_query="SELECT COUNT(*) FROM Teaches WHERE orID = $active_id AND secID = $row[11] AND cID = $row[10];";
+                $result2 = mysqli_query($myconnection, $is_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $teaching = mysqli_fetch_row($result2);
+                
+                $is_mentee_query="SELECT COUNT(*) FROM Learns WHERE eeID = $active_id AND secID = $row[11] AND cID = $row[10];";
+                $result2 = mysqli_query($myconnection, $is_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $learning = mysqli_fetch_row($result2);
+
+                $start_date = new DateTime($row[5]);
                 $html_string .= "
                 <tr>
                     <td>$row[0]</td>
@@ -83,15 +92,23 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>";
-                if ($s_grade >= $row[1] && $mentor){
-                    $html_string .= "
-                        <td><button onClick=''>Teach</button></td>
-                    ";
+                if ($s_grade >= $row[1] && $mentor && $todays_date < $start_date && !$learning[0]){
+                    if (!$teaching[0]) {
+                        $html_string .= "
+                            <td><a href='enroll-mentor.php?cID=".$row[10]."&&secID=".$row[11]."'>Teach</a></td>
+                        ";
+                    } else {
+                        $html_string .= "<td>Currently Teaching</td>"; 
+                    }
                 } else {
                     $html_string .= "<td>N/A</td>";
                 }
-                if ($s_grade >= $row[2] && $mentee){
-                    $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
+                if ($s_grade >= $row[2] && $mentee && $todays_date < $start_date && !$teaching[0]){
+                    if(!$learning[0]) {
+                        $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
+                    } else {
+                        $html_string .= "<td>Currently Enrolled</td>";
+                    }
                 } else {
                     $html_string .= "<td>N/A</td>";
                 }
@@ -100,14 +117,8 @@
     mysqli_free_result($result1);
     $html_string .= "</table>";
     echo($html_string);
-   /* $get_info_query = "SELECT name, role, grade FROM User, Student WHERE {$active_id} = uID AND Student.sID = User.uID;";
-   $result2 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
-   mysqli_free_result($result2);
-   */
 
-  
     echo('<h3><a href="logout.php">Logout</a></h3>');
-
 
     mysqli_close($myconnection);
     exit;
