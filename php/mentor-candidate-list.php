@@ -48,23 +48,28 @@
             <th>Student Name</th>
             <th>Student Grade</th>
             <th>Assign</th>
-          </tr>
-          <tr>
-            <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            <td>Assign</td>
-          </tr>
-         <label>
-        </table>";
+          </tr>";
 
-        echo($html_string);
-/*
-    $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$sec_ID} = SecID;";
+
+
+    $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE role = 'Mentor' AND Student.sID = User.uID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
-    $row = mysqli_fetch_row($result1);
-    mysqli_free_result($result1);
+    #$row = mysqli_fetch_row($result1);
+    #mysqli_free_result($result1);
 
+    while ($row = mysqli_fetch_row($result1)){
+        $html_string .=   "
+      <tr>
+        <td>$row[0]</td>
+        <td>$row[1]</td>
+        <td>$row[2]</td>
+        <td>Assign</td>
+      </tr>"; }
+
+    $html_string .=   "<label>
+    </table>";
+
+/*
     echo("
         <h1>Change Your Child's Profile as Parent User</h1>
 
@@ -111,6 +116,8 @@
     echo("<h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>");
     echo("<h3><a href='logout.php'>Logout</a><h3>");
 */
+
+echo($html_string);
     mysqli_close($myconnection);
     exit;
 ?>
