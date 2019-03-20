@@ -82,7 +82,7 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>
-                    <td><form method='get' action='mentor-candidate-list.php'><input type='hidden' value='".$row[11]."' name='cID'><button type='submit' value='".$row[10]."' name='secID'>Assign Mentor
+                    <td><form method='get' action='mentor-candidate-list.php'><input type='hidden' value='".$row[0]."' name='classname'><input type='hidden' value='".$row[11]."' name='cID'><button type='submit' value='".$row[10]."' name='secID'>Assign Mentor
 
                     </form></td></tr>
                     <tr>

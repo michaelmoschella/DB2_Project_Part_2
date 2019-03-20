@@ -3,6 +3,7 @@
 
     $sec_ID = (isset($_GET['secID']) ? $_GET['secID'] : null); # get parameter from link
     $c_ID = (isset($_GET['cID']) ? $_GET['cID'] : null); # get parameter from link
+    $class_name = (isset($_GET['classname']) ? $_GET['classname'] : null);
     echo(
         "<h1>{$sec_ID}</h1><br>"
     );
@@ -17,7 +18,47 @@
     $active_id = $_SESSION['active_ID'];
 
 
-    #$html_string =
+    $html_string =  "<h1>Mentor Candidate List</h1>
+
+        <head>
+        <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+    aqSz
+    [P]
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+    </head>
+      <label>
+        $class_name
+        <table style='width:25%' style='height:15%'>
+          <tr>
+            <th>Mentor ID</th>
+            <th>Student Name</th>
+            <th>Student Grade</th>
+            <th>Assign</th>
+          </tr>
+          <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>Assign</td>
+          </tr>
+         <label>
+        </table>";
+
+        echo($html_string);
 /*
     $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$sec_ID} = SecID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
