@@ -1,7 +1,12 @@
 <?php
     session_start();
 
-    $sec_ID = $_GET['secID']; # get parameter from link
+    $sec_ID = (isset($_GET['secID']) ? $_GET['secID'] : null); # get parameter from link
+    $c_ID = (isset($_GET['cID']) ? $_GET['cID'] : null); # get parameter from link
+    echo(
+        "<h1>{$sec_ID}</h1><br>"
+    );
+
     echo(
         "<h1>{$c_ID}</h1>"
     );
@@ -11,7 +16,10 @@
 
     $active_id = $_SESSION['active_ID'];
 
-    $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$c_ID} = uID;";
+
+    #$html_string =
+/*
+    $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$sec_ID} = SecID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);
     mysqli_free_result($result1);
@@ -61,7 +69,7 @@
 
     echo("<h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>");
     echo("<h3><a href='logout.php'>Logout</a><h3>");
-
+*/
     mysqli_close($myconnection);
     exit;
 ?>

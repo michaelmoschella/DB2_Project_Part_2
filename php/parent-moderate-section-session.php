@@ -82,7 +82,9 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>
-                    <td><form action='mentor-candidate-list.php?secID=".$row[10]."'><input type='submit' value='Assign Mentor'></form></td></tr>
+                    <td><form method='get' action='mentor-candidate-list.php'><input type='hidden' value='".$row[11]."' name='cID'><button type='submit' value='".$row[10]."' name='secID'>Assign Mentor
+
+                    </form></td></tr>
                     <tr>
                       <th colspan='4' style = 'text-align: center;''>Session Info</th>
                       <th colspan = '2'>Session ID</th>
