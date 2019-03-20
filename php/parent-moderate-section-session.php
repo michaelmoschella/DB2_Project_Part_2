@@ -69,6 +69,8 @@
                 <th>Moderate as Moderator</th>
             </tr>";
 
+
+
             while ($row = mysqli_fetch_row($result1)){
                 $html_string .= "
                 <tr>
@@ -82,29 +84,43 @@
                     <td>$row[2]</td>
                     <td>0</td>
                     <td>0</td>
-                    <td><form action='mentor-candidate-list.php'><input type='submit' value='Assign Mentor'></form></td></tr>
-                    <tr>
-                      <th colspan='4' style = 'text-align: center;''>Session Info</th>
-                      <th colspan = '2'>Session ID</th>
-                      <th colspan = '2'>Session Name</th>
-                      <th colspan = '2'>Date</th>
-                      <th></th>
-                    </tr>";
-                    $myInt = 0;
-                    while ($myInt<10){
-                      $myInt++;
+                    <td><form method='get' action='mentor-candidate-list.php'>
+                    <input type='hidden' value='".$row[1]."' name='mentorRequire'>
+                    <input type='hidden' value='".$row[0]."' name='classname'>
+                    <input type='hidden' value='".$row[10]."' name='cID'>
+                    <button type='submit' value='".$row[11]."' name='secID'>Assign Mentor
+
+                    </form></td></tr>";
+                    $get_section_info_query_two = "SELECT Session.announcement, Session.sesID, Session.name, Session.theDate
+                        FROM Session, Section
+                        WHERE Session.cID = Section.cID AND Session.secID = Section.secID AND Session.cID = $row[10] AND Session.secID = $row[11];";
+                    $result2 = mysqli_query($myconnection, $get_section_info_query_two) or die ('Query failed: ' . mysqli_error($myconnection));
+
+                    $count=0;
+                    while ($row2 = mysqli_fetch_row($result2)){
+
+                      if($count==0){$html_string .=  "<tr>
+                          <th colspan='4' style = 'text-align: center;''>Session Info</th>
+                          <th colspan = '2'>Session ID</th>
+                          <th colspan = '2'>Session Name</th>
+                          <th colspan = '2'>Date</th>
+                          <th></th>
+                        </tr>";}
+                        $count++;
+
+
                         $html_string .= "<tr>
-                      <td>A</td>
-                      <td>B</td>
-                      <td>C</td>
-                      <td>D</td>
-                      <td>E</td>
-                      <td>F</td>
-                      <td>G</td>
-                      <td>H</td>
-                      <td>I</td>
-                      <td>J</td>
-                      <td><form action='post-materials.php'><input type='submit' value='Post'></form></td></td>
+                          <td colspan='4' style = 'text-align: center;''>$row2[0]</th>
+                          <td colspan = '2'>$row2[1]</th>
+                          <td colspan = '2'>$row2[2]</th>
+                          <td colspan = '2'>$row2[3]</th>
+                          <td><form method='get' action='post-materials.php'>
+                          <input type='hidden' value='".$row[1]."' name='mentorRequire'>
+                          <input type='hidden' value='".$row[0]."' name='classname'>
+                          <input type='hidden' value='".$row[10]."' name='cID'>
+                          <button type='submit' value='".$row[11]."' name='secID'>Post
+
+                          </form></td>
                     </tr>";}
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "

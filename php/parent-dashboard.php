@@ -56,12 +56,14 @@
         </tr> ";
     }
 
+    $html_string .= "<tr>
+      <td>Parent</td>
+      <td>Section</td>
+      <td><a href='parent-view-sections.php?parent_role=".$p_role."'>View Sections</a></td>
+    </tr>";
+
     if($p_role == 'Moderator'){
-      $html_string .= "<tr>
-        <td>Parent</td>
-        <td>Section</td>
-        <td><a href='parent-view-sections.php'>View Sections</a></td>
-      </tr>
+      $html_string .= "
       <tr>
         <td>Moderator</td>
         <td>Moderator</td>
