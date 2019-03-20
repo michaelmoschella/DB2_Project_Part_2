@@ -1,9 +1,15 @@
 <?php
     session_start();
 
+    $parent_role = $_GET['parent_role']; # get parameter from link
+    echo(
+        "<h1>{$parent_role}</h1>"
+    );
+
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
+    
 
   #  $active_id = $_SESSION['active_ID'];
   #  $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
@@ -65,9 +71,12 @@
                 <th>Mentor Req</th>
                 <th>Mentee Req</th>
                 <th>Enrolled Mentor</th>
-                <th>Enrolled Mentee</th>
-                <th>Moderate as Moderator</th>
-            </tr>";
+                <th>Enrolled Mentee</th>";
+                if($parent_role=='Moderator'){
+                  $html_string .= "
+                <th>Moderate as Moderator</th>"; }
+
+            $html_string .= "</tr>";
 
             while ($row = mysqli_fetch_row($result1)){
                 $html_string .= "
@@ -81,8 +90,13 @@
                     <td>$row[1]</td>
                     <td>$row[2]</td>
                     <td>0</td>
-                    <td>0</td>
-                    <td><button onClick=''>Moderate</button></td>";
+                    <td>0</td>";
+                    if($parent_role=='Moderator'){
+                      $html_string .= "
+                    <td><button onClick=''>Moderate</button>";
+                  }
+
+                  $html_string .= "</td>";
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "
             ##            <td><button onClick=''>Teach</button></td>
