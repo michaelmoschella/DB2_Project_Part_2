@@ -90,21 +90,24 @@
                     <input type='hidden' value='".$row[10]."' name='cID'>
                     <button type='submit' value='".$row[11]."' name='secID'>Assign Mentor
 
-                    </form></td></tr>
-                    <tr>
-                      <th colspan='4' style = 'text-align: center;''>Session Info</th>
-                      <th colspan = '2'>Session ID</th>
-                      <th colspan = '2'>Session Name</th>
-                      <th colspan = '2'>Date</th>
-                      <th></th>
-                    </tr>";
+                    </form></td></tr>";
                     $get_section_info_query_two = "SELECT Session.announcement, Session.sesID, Session.name, Session.theDate
                         FROM Session, Section
                         WHERE Session.cID = Section.cID AND Session.secID = Section.secID AND Session.cID = $row[10] AND Session.secID = $row[11];";
                     $result2 = mysqli_query($myconnection, $get_section_info_query_two) or die ('Query failed: ' . mysqli_error($myconnection));
 
-
+                    $count=0;
                     while ($row2 = mysqli_fetch_row($result2)){
+
+                      if($count==0){$html_string .=  "<tr>
+                          <th colspan='4' style = 'text-align: center;''>Session Info</th>
+                          <th colspan = '2'>Session ID</th>
+                          <th colspan = '2'>Session Name</th>
+                          <th colspan = '2'>Date</th>
+                          <th></th>
+                        </tr>";}
+                        $count++;
+
 
                         $html_string .= "<tr>
                           <td colspan='4' style = 'text-align: center;''>$row2[0]</th>
