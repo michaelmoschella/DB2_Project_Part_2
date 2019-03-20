@@ -4,12 +4,16 @@
     $sec_ID = (isset($_GET['secID']) ? $_GET['secID'] : null); # get parameter from link
     $c_ID = (isset($_GET['cID']) ? $_GET['cID'] : null); # get parameter from link
     $class_name = (isset($_GET['classname']) ? $_GET['classname'] : null);
+    $mentor_req = (isset($_GET['mentorRequire']) ? $_GET['mentorRequire'] : null);
     echo(
         "<h1>{$sec_ID}</h1><br>"
     );
 
     echo(
-        "<h1>{$c_ID}</h1>"
+        "<h1>{$c_ID}</h1><br>"
+    );
+    echo(
+        "<h1>{$mentor_req}</h1>"
     );
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
@@ -52,7 +56,7 @@
 
 
 
-    $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE role = 'Mentor' AND Student.sID = User.uID;";
+    $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE role = 'Mentor' AND Student.sID = User.uID AND Student.grade >= $mentor_req;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     #$row = mysqli_fetch_row($result1);
     #mysqli_free_result($result1);
