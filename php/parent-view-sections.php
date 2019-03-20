@@ -6,10 +6,14 @@
         "<h1>{$parent_role}</h1>"
     );
 
+$active_id = $_SESSION['active_ID'];
+
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
-    
+
+    $get_info_query = "SELECT secID, cID FROM Moderates WHERE {$active_id} = modID;";
+    $result0 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
   #  $active_id = $_SESSION['active_ID'];
   #  $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
@@ -92,8 +96,19 @@
                     <td>0</td>
                     <td>0</td>";
                     if($parent_role=='Moderator'){
+                      $test = 0;
+                    while ($row0 = mysqli_fetch_row($result0)){
+                      if($row0[0]==$row[11] && $row0[1]==$row[10]){
+                        $test = 1;
+                      }
+                    }
+                    if($test==0){
                       $html_string .= "
                     <td><button onClick=''>Moderate</button>";
+                  } else {
+                    $html_string .= "
+                <td>Moderating Section</button>";
+                  }
                   }
 
                   $html_string .= "</td>";
