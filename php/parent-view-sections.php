@@ -98,7 +98,7 @@ $active_id = $_SESSION['active_ID'];
                     if($parent_role=='Moderator'){
 
 
-                      $get_info_query = "SELECT secID, cID, modID FROM Moderates;";
+                      $get_info_query = "SELECT Moderates.secID, Moderates.cID, Moderates.modID, User.name FROM Moderates, User WHERE Moderates.modID = User.uID;";
                       $result0 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
                     while ($row0 = mysqli_fetch_row($result0)){
@@ -128,7 +128,7 @@ $active_id = $_SESSION['active_ID'];
                 <td>Moderating Section</button>";
               } else {
                 $html_string .= "
-            <td>N/A</button>";
+            <td>Moderated by user: $row0[3]</button>";
               }
                   }
 
