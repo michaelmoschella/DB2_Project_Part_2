@@ -114,7 +114,13 @@
                           <td colspan = '2'>$row2[1]</th>
                           <td colspan = '2'>$row2[2]</th>
                           <td colspan = '2'>$row2[3]</th>
-                      <td><form action='post-materials.php'><input type='submit' value='Post'></form></td></td>
+                          <td><form method='get' action='post-materials.php'>
+                          <input type='hidden' value='".$row[1]."' name='mentorRequire'>
+                          <input type='hidden' value='".$row[0]."' name='classname'>
+                          <input type='hidden' value='".$row[10]."' name='cID'>
+                          <button type='submit' value='".$row[11]."' name='secID'>Post
+
+                          </form></td>
                     </tr>";}
           ##      if ($s_grade >= $row[1] && $mentor){
               ##      $html_string .= "
