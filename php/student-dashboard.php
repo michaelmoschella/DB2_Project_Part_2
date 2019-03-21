@@ -46,14 +46,14 @@
             <td><a href='change-s-profile.php'>Change Your Profile</a></td>
         </tr>
         <tr>
+            <td>$row[0]</td>
             <td>Student</td>
-            <td>Section</td>
             <td><a href='student-view-sections.php'>View Sections</a></td>
         </tr>
         <tr>
             <td>Mentor</td>
             <td>Mentor</td>
-            <td><a href=''>View Mentor</a></td>
+            <td><a href='view-mentor.php'>View Mentor</a></td>
         </tr>
         <tr>
             <td>Mentee</td>
