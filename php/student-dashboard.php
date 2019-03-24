@@ -51,14 +51,14 @@
             <td><a href='student-view-sections.php'>View Sections</a></td>
         </tr>
         <tr>
-            <td>Mentor</td>
+            <td>$row[0]</td>
             <td>Mentor</td>
             <td><a href='view-mentor.php'>View Mentor</a></td>
         </tr>
         <tr>
-            <td>Mentee</td>
-            <td>Mentee</td>
-            <td><a href=''>View Mentee</td>
+            <td>$row[0]</td>
+            <td>$row[1]</td>
+            <td><a href='student-view-sessions.php'>View Sessions</td>
         </tr>
         </table>
     ");

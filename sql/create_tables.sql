@@ -238,7 +238,8 @@ CREATE TABLE `Section` (
 	`cID` INT,
 	`schedID` INT,
 	`name` CHAR(50),
-	`capacity` INT,
+	`mentorCap` INT,
+	`menteeCap` INT,
 	`tuition` FLOAT,
 	`salary` FLOAT,
 	`startDate` DATE,
@@ -248,45 +249,45 @@ CREATE TABLE `Section` (
 	CONSTRAINT `e` FOREIGN KEY (`cID`) REFERENCES Course(`cID`) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8;
 INSERT INTO Section 
-VALUES (1, 1, 1, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 1, 1, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 1, 2, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 1, 2, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 2, 3, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 2, 3, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 2, 4, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 2, 4, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 3, 5, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 3, 5, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 3, 6, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 3, 6, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 4, 7, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 4, 7, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 4, 8, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 4, 8, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 5, 9, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 5, 9, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 5, 10, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 5, 10, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 6, 1, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 6, 1, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 6, 2, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 6, 2, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 7, 3, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 7, 3, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 7, 4, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 7, 4, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 8, 5, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 8, 5, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 8, 6, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 8, 6, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 9, 7, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 9, 7, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 9, 8, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 9, 8, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
-VALUES (1, 10, 9, "Section 1", 9, 7.00, 7.00, '2018-01-01', '2018-05-01');
+VALUES (1, 10, 9, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
-VALUES (2, 10, 10, "Section 2", 9, 7.00, 7.00, '2019-01-01', '2019-05-01');
+VALUES (2, 10, 10, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 
 
 CREATE TABLE `Record` (

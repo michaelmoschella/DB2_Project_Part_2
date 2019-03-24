@@ -38,17 +38,17 @@
                 <h2>{$row[1]} {$row[0]}</h2>
                 <table style='width:25%' style='height:15%'>
                 <tr>
-                    <th>Student Name</th>
-                    <th>Student Grade</th>
-                    <th>Student Role</th>
+                    <th>Username</th>
+                    <th>Grade</th>
+                    <th>Email</th>
                 </tr>
                 <tr>
                     <td colspan = '3' style = 'text-align: center;'>Mentees</td>
                 </tr>";
-        $get_mentors_query = "SELECT User.username, Student.grade FROM Teaches, User, Student 
+        $get_mentors_query = "SELECT User.username, Student.grade User.emailFROM Teaches, User, Student 
             WHERE Teaches.orID = User.uID AND Teaches.orID = Student.sID AND Teaches.secID = $row[2] AND Teaches.cID = $row[3];";
         $result2 = mysqli_query($myconnection, $get_mentors_query) or die ('Query failed: ' . mysqli_error($myconnection));
-        $get_mentees_query = "SELECT User.username, Student.grade FROM Learns, User, Student 
+        $get_mentees_query = "SELECT User.username, Student.grade User.emailFROM Learns, User, Student 
             WHERE Learns.eeID = User.uID AND Learns.eeID = Student.sid AND Learns.secID = $row[2] AND Learns.cID = $row[3];";
         $result3 = mysqli_query($myconnection, $get_mentees_query) or die ('Query failed: ' . mysqli_error($myconnection));
         while($a_row = mysqli_fetch_row($result3)){
@@ -56,7 +56,7 @@
                 <tr>
                     <td>{$a_row[0]}</td>
                     <td>{$a_row[1]}</td>
-                    <td>HAHA</td>
+                    <td>{$a_row[2]}</td>
                 </tr>";
         }
         mysqli_free_result($result3);
@@ -69,7 +69,7 @@
                 <tr>
                     <td>{$a_row[0]}</td>
                     <td>{$a_row[1]}</td>
-                    <td>HAHA</td>
+                    <td>{$a_row[2]}</td>
                 </tr>
             ";
         }
@@ -82,6 +82,8 @@
     mysqli_free_result($result1);
 
     echo($html_string);
+
+    echo('<h3><a href="student-dashboard.php">Back to dashboard</a></h3>');
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
     mysqli_close($myconnection);
