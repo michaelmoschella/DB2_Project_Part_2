@@ -10,6 +10,7 @@
     $sec_id = $_GET['secID'];
     $ses_id = $_GET['sesID'];
 
+
     $insert_mentee_query = "INSERT INTO SessLearn VALUES ({$ses_id}, {$sec_id}, {$c_id}, {$active_id});";
     $result2 = mysqli_query($myconnection, $insert_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
 

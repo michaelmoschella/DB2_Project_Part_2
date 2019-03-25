@@ -30,9 +30,7 @@
         default:
             $offset = "0 days";
     }
-    echo("$offset");
     $fri_date = date_sub($todays_date, date_interval_create_from_date_string($offset));
-    echo(date_format($fri_date, "y-m-d"));
 
     $active_id = $_SESSION['active_ID'];
     $html_string = "
@@ -63,20 +61,21 @@
     AND Course.cID = Teaches.cID;"; 
     $result1 = mysqli_query($myconnection, $get_sec_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     while ($row = mysqli_fetch_row($result1)) {
-        $html_string .=     
-            "<label>
-                <table style='width:25%' style='height:15%'>
-                <tr>
-                    <td colspan = '6' style = 'text-align: center;'><h4>{$row[1]} {$row[0]}</h4></td>
-                </tr>
-                <tr>
-                    <th>Session Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Mentor Count</th>
-                    <th>Mentee Count</th>
-                    <th>Enroll</th>
-                </tr>";
+        $html_string .= "<label>
+        <table style='width:25%' style='height:15%'>
+        <tr>
+            <td colspan = '7' style = 'text-align: center'><h4>{$row[1]} {$row[0]}</h4></td>
+        </tr>
+        <tr>
+            <th>Session Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Mentor Count</th>
+            <th>Mentee Count</th>
+            <th>View Study Material</th>
+            <th>Enroll</th>
+        </tr>";
+
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
                 Session.sesID, Session.secID, Session.cID
             FROM Session, Section, Schedule
@@ -112,13 +111,16 @@
                         <td>{$a_row[1]}</td>
                         <td>{$a_row[2]}-{$a_row[3]}</td>
                         <td>{$row1[0]}</td>
-                        <td>{$row2[0]}</td>";
+                        <td>{$row2[0]}</td>
+                        <td><a href='view-study-material.php?sesID=".$a_row[4]."&&secID=".$a_row[5]."&&cID=".$a_row[6].
+                        "&&cTitle=".$row[1]."&&secName=".$row[0]."&&sesName=".$a_row[0]."'>View Study Materials</a></td>";
                         $sess_date = new DateTime($a_row[1]);
                         if (!$row3[0]) {
                             if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
                                 $html_string .= "<td>Missed Thursday Deadline</td>";
                             } else {
-                                $html_string .= "<td><a href='enroll-mentor-session.php?cID=".$a_row[6]."&&secID=".$a_row[5]."&&sesID=".$a_row[4]."'>Enroll</td>";
+                                $html_string .= "<td><a href='enroll-mentor-session.php?cID=".$a_row[6]."&&secID=".$a_row[5].
+                                "&&sesID=".$a_row[4]."'>Enroll</td>";
                             }
                         } else {
                             $html_string .= "<td>Currently Enrolled</td>";
@@ -128,7 +130,7 @@
         } else {
             $html_string .= "
                 <tr>
-                    <td colspan = '6' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
+                    <td colspan = '7' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
                 </tr>
             ";
         }
@@ -151,7 +153,7 @@
             "<label>
                 <table style='width:25%' style='height:15%'>
                 <tr>
-                    <td colspan = '6' style = 'text-align: center;'><h4>{$row[1]} {$row[0]}</h4></td>
+                    <td colspan = '7' style = 'text-align: center;'><h4>{$row[1]} {$row[0]}</h4></td>
                 </tr>
                 <tr>
                     <th>Session Name</th>
@@ -159,6 +161,7 @@
                     <th>Time</th>
                     <th>Mentor Count</th>
                     <th>Mentee Count</th>
+                    <th>View Study Material</th>
                     <th>Enroll</th>
                 </tr>";
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
@@ -197,7 +200,10 @@
                         <td>{$a_row[1]}</td>
                         <td>{$a_row[2]}-{$a_row[3]}</td>
                         <td>{$row1[0]}</td>
-                        <td>{$row2[0]}</td>";
+                        <td>{$row2[0]}</td>
+                        <td><a href='view-study-material.php?sesID=".$a_row[4]."&&secID=".$a_row[5]."&&cID=".$a_row[6].
+                        "&&cTitle=".$row[1]."&&secName=".$row[0]."&&sesName=".$a_row[0]."'>View Study Materials</a></td>";
+
                         $sess_date = new DateTime($a_row[1]);
                         if (!$row3[0]) {
                             if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun

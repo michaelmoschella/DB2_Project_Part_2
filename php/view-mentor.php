@@ -45,10 +45,10 @@
                 <tr>
                     <td colspan = '3' style = 'text-align: center;'>Mentees</td>
                 </tr>";
-        $get_mentors_query = "SELECT User.username, Student.grade User.emailFROM Teaches, User, Student 
+        $get_mentors_query = "SELECT User.username, Student.grade, User.email FROM Teaches, User, Student 
             WHERE Teaches.orID = User.uID AND Teaches.orID = Student.sID AND Teaches.secID = $row[2] AND Teaches.cID = $row[3];";
         $result2 = mysqli_query($myconnection, $get_mentors_query) or die ('Query failed: ' . mysqli_error($myconnection));
-        $get_mentees_query = "SELECT User.username, Student.grade User.emailFROM Learns, User, Student 
+        $get_mentees_query = "SELECT User.username, Student.grade, User.email FROM Learns, User, Student 
             WHERE Learns.eeID = User.uID AND Learns.eeID = Student.sid AND Learns.secID = $row[2] AND Learns.cID = $row[3];";
         $result3 = mysqli_query($myconnection, $get_mentees_query) or die ('Query failed: ' . mysqli_error($myconnection));
         while($a_row = mysqli_fetch_row($result3)){
