@@ -26,9 +26,10 @@
   #  }
 
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
-        Section.name, Section.capacity, Section.startDate, Section.endDate,
+        Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
-        Course.cID, Section.SecID
+        Course.cID, Section.SecID,
+        Section.mentorCap, Section.menteeCap
         FROM Course, Section, Schedule
         WHERE Course.cID = Section.cID AND
             Section.schedID = Schedule.schedID;";
@@ -72,6 +73,18 @@
 
 
             while ($row = mysqli_fetch_row($result1)){
+                $get_mentor_count_query = "SELECT count(*) FROM Teaches 
+                    WHERE Teaches.secID = {$row[11]} AND Teaches.cID = {$row[10]};";
+                $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $a_row1 = mysqli_fetch_row($result3);
+                mysqli_free_result($result3);
+                
+                $get_mentee_count_query = "SELECT COUNT(*) FROM Learns 
+                    WHERE Learns.secID = {$row[11]} AND Learns.cID = {$row[10]};";
+                $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $a_row2 = mysqli_fetch_row($result4);
+                mysqli_free_result($result4);
+
                 $html_string .= "
                 <tr>
                     <td>$row[0]</td>
@@ -82,8 +95,8 @@
                     <td>$row[4]</td>
                     <td>$row[1]</td>
                     <td>$row[2]</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td>$a_row1[0]/$row[12]</td>
+                    <td>$a_row2[0]/$row[13]</td>
                     <td><form method='get' action='mentor-candidate-list.php'>
                     <input type='hidden' value='".$row[1]."' name='mentorRequire'>
                     <input type='hidden' value='".$row[0]."' name='classname'>
@@ -144,7 +157,7 @@
    mysqli_free_result($result2);
    */
 
-
+    echo('<h3><a href="parent-dashboard.php">Back to dashboard</a></h3>');
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
 
