@@ -54,13 +54,13 @@
             # Do we need to handle when one of the queries fails????????????????????????????
 
             echo("<h1>Congratulations {$s_username}, you have successfully registered!</h1>
-            <h3><a href='../not_useless.html'>Back to main page</a></h3>");
+            <h3><a href='../Phase2.html'>Back to main page</a></h3>");
         }
     } else {
         # parent not found in database
         echo("<h1>Parent not found!</h1>
             <h5>As a student your parent must have an account before you can create one.</h5>
-            <h3><a href='../not_useless.html'>Back to main page</a></h3>");
+            <h3><a href='../Phase2.html'>Back to main page</a></h3>");
     }
     mysqli_free_result($result2);
     mysqli_close($myconnection);

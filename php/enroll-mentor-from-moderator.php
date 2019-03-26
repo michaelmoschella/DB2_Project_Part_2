@@ -14,7 +14,7 @@
     $insert_mentor_query = "INSERT INTO SessTeach VALUES ({$ses_id}, {$sec_id}, {$c_id}, {$uid});";
     $result2 = mysqli_query($myconnection, $insert_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
-    echo("<h1>Congratulations {$name}, you have successfully enrolled as a Mentor!</h1>");
+    echo("<h1>Congratulations, you have successfully enrolled {$name} as a Mentor!</h1>");
     echo('<h3><a href="parent-moderate-section-session.php">Back to moderation list</a></h3>');
     echo('<h3><a href="parent-dashboard.php">Back to dashboard</a></h3>');
     echo('<h3><a href="logout.php">Logout</a></h3>');
