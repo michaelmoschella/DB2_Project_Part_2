@@ -22,11 +22,11 @@
 
         } else {
             echo("<h1>Sorry, the provided password does not match the account for {$s_email}</h1>
-            <h3><a href='../not_useless.html'>Back to main page</a></h3>");
+            <h3><a href='../Phase2.html'>Back to main page</a></h3>");
         }
     } else {
         echo("<h1>Sorry, the email address {$s_email} is not registered to a student in our Database</h1>
-            <h3><a href='../not_useless.html'>Back to main page</a></h3>");
+            <h3><a href='../Phase2.html'>Back to main page</a></h3>");
     }
     mysqli_free_result($result1);
 

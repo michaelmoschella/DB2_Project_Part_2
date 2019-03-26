@@ -67,7 +67,7 @@
                 <th>Mentee Req</th>
                 <th>Enrolled Mentor</th>
                 <th>Enrolled Mentee</th>
-                <th>Moderate as Moderator</th>
+                <th colspan = '2'>Moderate as Moderator</th>
             </tr>";
 
 
@@ -97,6 +97,7 @@
                     <td>$row[2]</td>
                     <td>$a_row1[0]/$row[12]</td>
                     <td>$a_row2[0]/$row[13]</td>
+                    <td colspan = '2'>Moderate $row[3]:</td>
                     </tr>";
                     $get_section_info_query_two = "SELECT Session.announcement, Session.sesID, Session.name, Session.theDate
                         FROM Session, Section
@@ -111,7 +112,8 @@
                           <th colspan = '2'>Session ID</th>
                           <th colspan = '2'>Session Name</th>
                           <th colspan = '2'>Date</th>
-                          <th></th>
+                          <th>Post Session Materials</th>
+                          <th>Assign Mentor for Session</th>
                         </tr>";}
                         $count++;
 
