@@ -40,7 +40,7 @@
   }
 
   echo("<h1>Congratulations {$p_username}, you have successfully registered</h1>
-    <h3><a href='../not_useless.html'>Back to main page</a></h3>");
+    <h3><a href='../Phase2.html'>Back to main page</a></h3>");
 
   mysqli_close($myconnection);//.
   exit;
