@@ -63,7 +63,7 @@
       <button>Submit</button>
     </form>
 
-    <h1>Post Materials For Current Section</h1>
+    <h1>Post Materials For Current Session</h1>
 
     <head>
     <style>

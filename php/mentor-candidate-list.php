@@ -84,8 +84,18 @@ while ($row2 = mysqli_fetch_row($result2)){
         <td>$row[0]</td>
         <td>$row[1]</td>
         <td>$row[2]</td>
-        <td>Assign</td>
-      </tr>"; 
+        <td>
+        <form method='get' action='enroll-mentor-from-moderator.php'>
+        <input type='hidden' value='".$row[1]."' name='the_name'>
+        <input type='hidden' value='".$sesID."' name='ses_ID'>
+        <input type='hidden' value='".$sec_ID."' name='sec_ID'>
+        <input type='hidden' value='".$c_ID."' name='c_ID'>
+        <button type='submit' value='".$row[0]."' name='uID'>Assign</button>
+        </form></td>
+
+
+
+      </tr>";
     }
 }
 $html_string .=   "<label>
