@@ -253,6 +253,10 @@ VALUES (1, 1, 1, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
 VALUES (2, 1, 2, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
 INSERT INTO Section 
+VALUES (3, 1, 3, "Section 3", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
+INSERT INTO Section 
+VALUES (4, 1, 4, "Section 4", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');
+INSERT INTO Section 
 VALUES (1, 2, 3, "Section 1", 3, 6, 7.00, 7.00, '2018-01-01', '2018-05-01');
 INSERT INTO Section 
 VALUES (2, 2, 4, "Section 2", 3, 6, 7.00, 7.00, '2019-01-01', '2019-05-01');

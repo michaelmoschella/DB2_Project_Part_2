@@ -69,15 +69,10 @@ while ($row2 = mysqli_fetch_row($result2)){
   echo(
       "<h1>{$row2[0]}</h1>"
   );*/
-          $get_info_query = "SELECT orID FROM Teaches NATURAL JOIN SessTeach WHERE cID = $c_ID AND secID = $sec_ID AND sesID = $sesID AND orID NOT IN (SELECT orID FROM SessTeach WHERE SesID = $sesID);";
+          $get_info_query = "SELECT orID FROM Teaches WHERE cID = $c_ID AND secID = $sec_ID AND orID NOT IN (SELECT orID FROM SessTeach WHERE cID = $c_ID AND secID = $sec_ID AND SesID = $sesID);";
           $result2 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 echo("**************************************mentors");
 while ($row2 = mysqli_fetch_row($result2)){
-  echo(
-
-      "<h1>{$row2[0]}</h1>"
-  );
-
     $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE  Student.sID = User.uID AND Student.grade >= $mentor_req  AND User.uID = $row2[0];";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     #$row = mysqli_fetch_row($result1);
@@ -90,11 +85,11 @@ while ($row2 = mysqli_fetch_row($result2)){
         <td>$row[1]</td>
         <td>$row[2]</td>
         <td>Assign</td>
-      </tr>"; }
-
-    $html_string .=   "<label>
-    </table>";
+      </tr>"; 
+    }
 }
+$html_string .=   "<label>
+    </table>";
 
 
 /*

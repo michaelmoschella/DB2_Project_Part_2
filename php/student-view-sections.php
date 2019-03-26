@@ -11,7 +11,7 @@
         $start2 = new DateTime($start_time2,$utc);
         $end2 = new DateTime($end_time2,$utc);
 
-        return ($end1 < $start2) || ($end2 < $start1);
+        return ($end1 <= $start2) || ($end2 <= $start1);
     }
         
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -38,6 +38,17 @@
         $mentee = false;
     }
 
+    $get_students_courses_query = "SELECT Section.cID, Section.startDate, Section.endDate From Learns, Section
+        WHERE $active_id = Learns.eeID AND Learns.secID = Section.secID  AND Learns.cID = Section.cID;";
+    $result3 = mysqli_query($myconnection, $get_students_courses_query) or die ('Query failed: ' . mysqli_error($myconnection));
+    $courses = array();
+    while ($row = mysqli_fetch_row($result3)){
+        $end_date = new DateTime($row[2]);
+        if ($todays_date < $end_date){
+            array_push($courses, array($row[0], $row[1], $row[2]) );
+        }
+    }
+    mysqli_free_result($result3);
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
         Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
@@ -48,19 +59,23 @@
             Section.schedID = Schedule.schedID;";
     $result1 = mysqli_query($myconnection, $get_section_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
-    $get_busy_times_query = "SELECT Schedule.startTime, Schedule.endTime, Section.startDate, Section.endDate From Schedule, Teaches, Section
+    $get_busy_times_query = "SELECT Schedule.startTime, Schedule.endTime, Section.startDate, Section.endDate, Section.cID From Schedule, Teaches, Section
         WHERE $active_id = Teaches.orID AND Teaches.secID = Section.secID AND Teaches.cID = Section.cID AND Schedule.schedID = Section.SchedID 
             UNION
-        SELECT Schedule.startTime, Schedule.endTime, Section.startDate, Section.endDate From Schedule, Learns, Section
+        SELECT Schedule.startTime, Schedule.endTime, Section.startDate, Section.endDate, Section.cID From Schedule, Learns, Section
             WHERE $active_id = Learns.eeID AND Learns.secID = Section.secID  AND Learns.cID = Section.cID AND Schedule.schedID = Section.SchedID;";
     $result3 = mysqli_query($myconnection, $get_busy_times_query) or die ('Query failed: ' . mysqli_error($myconnection));
+    
     $busy = array();
     while ($row = mysqli_fetch_row($result3)){
         $end_date = new DateTime($row[3]);
         if ($todays_date < $end_date){
             array_push($busy, array($row[0], $row[1], $row[2], $row[3]));
+            echo("$row[0] - $row[1]");
         }
     }
+    mysqli_free_result($result3);
+
     $html_string = "
         <h1>Section List</h1>
         <head>
@@ -116,6 +131,15 @@
                 $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row2 = mysqli_fetch_row($result4);
                 mysqli_free_result($result4);
+
+                $section_flag = false;
+                for ($i = 0; $i < count($courses); $i++) {
+                    if($courses[$i][0] == $row[10]
+                        && !rangeNoOverlap($courses[$i][1], $courses[$i][2], $row[5], $row[6])) {
+                            $section_flag = true;
+                    }
+                }
+
                 
                 $end_date = new DateTime($row[6]);
                 $html_string .= "
@@ -130,57 +154,63 @@
                     <td>$row1[0]/$row[12]</td>
                     <td>$row2[0]/$row[13]</td>";
                 if ($s_grade >= $row[1] && $mentor && $todays_date < $end_date && !$learning[0]){
-                    
                     if (!$teaching[0]) {
                         if($row1[0] < $row[12]){
-                            $time_conflict = false;
-                            for ($i=0; $i<count($busy); $i++) {
-                                $start_time = $busy[$i][0];
-                                $end_time = $busy[$i][1];
-                                $start_date = $busy[$i][2];
-                                $ending_date = $busy[$i][3];
-                                if (!rangeNoOverlap($start_date, $ending_date, $row[5], $row[6])) {
-                                    if (!rangeNoOverlap($start_time, $end_time, $row[7], $row[8])){
-                                        $time_conflict = true;
+  /*                          if ($section_flag) {
+                                $html_string .= "<td>Enrolled in different section for this course</td>";                       
+                            } else {*/
+                                $time_conflict = false;
+                                for ($i=0; $i<count($busy); $i++) {
+                                    $start_time = $busy[$i][0];
+                                    $end_time = $busy[$i][1];
+                                    $start_date = $busy[$i][2];
+                                    $ending_date = $busy[$i][3];
+                                    if (!rangeNoOverlap($start_date, $ending_date, $row[5], $row[6])) {
+                                        if (!rangeNoOverlap($start_time, $end_time, $row[7], $row[8])){
+                                            $time_conflict = true;
+                                        }
                                     }
                                 }
-                            }
-                            if (!$time_conflict) {
-                                $html_string .= "
-                                <td><a href='enroll-mentor.php?cID=".$row[10]."&&secID=".$row[11]."'>Teach</a></td>
-                                ";
-                            } else {
-                                $html_string .= "<td>Time Conflict</td>";
-                            } 
+                                if (!$time_conflict) {
+                                    $html_string .= "
+                                    <td><a href='enroll-mentor.php?cID=".$row[10]."&&secID=".$row[11]."'>Teach</a></td>
+                                    ";
+                                } else {
+                                    $html_string .= "<td>Time Conflict</td>";
+                                } 
+                           /* }*/
                         } else {
                             $html_string .= "<td>Section Full</td>";
                         }
                     } else {
                         $html_string .= "<td>Currently Teaching</td>"; 
                     }
-
                 } else {
                     $html_string .= "<td>N/A</td>";
                 }
                 if ($s_grade >= $row[2] && $mentee && $todays_date < $end_date && !$teaching[0]){
                     if(!$learning[0]) {
                         if($row2[0] < $row[12]) {
-                            $time_conflict = false;
-                            for ($i=0; $i<count($busy); $i++) {
-                                $start_time = $busy[$i][0];
-                                $end_time = $busy[$i][1];
-                                $start_date = $busy[$i][2];
-                                $ending_date = $busy[$i][3];
-                                if (!rangeNoOverlap($start_date, $ending_date, $row[5], $row[6])) {
-                                    if (!rangeNoOverlap($start_time, $end_time, $row[7], $row[8])){
-                                        $time_conflict = true;
-                                    } 
-                                }
-                            }
-                            if (!$time_conflict) {
-                                $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
+                            if ($section_flag) {
+                                $html_string .= "<td>Enrolled in different section for this course</td>";
                             } else {
-                                $html_string .= "<td>Time Conflict</td>";
+                                $time_conflict = false;
+                                for ($i=0; $i<count($busy); $i++) {
+                                    $start_time = $busy[$i][0];
+                                    $end_time = $busy[$i][1];
+                                    $start_date = $busy[$i][2];
+                                    $ending_date = $busy[$i][3];
+                                    if (!rangeNoOverlap($start_date, $ending_date, $row[5], $row[6])) {
+                                        if (!rangeNoOverlap($start_time, $end_time, $row[7], $row[8])){
+                                            $time_conflict = true;
+                                        } 
+                                    }
+                                }
+                                if (!$time_conflict) {
+                                    $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
+                                } else {
+                                    $html_string .= "<td>Time Conflict</td>";
+                                }
                             }
                         } else {    
                             $html_string .= "<td>Section Full</td>";
