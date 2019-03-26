@@ -73,7 +73,7 @@
             <th>Mentor Count</th>
             <th>Mentee Count</th>
             <th>View Study Material</th>
-            <th>Enroll</th>
+            <th>Participate</th>
         </tr>";
 
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
@@ -115,15 +115,15 @@
                         <td><a href='view-study-material.php?sesID=".$a_row[4]."&&secID=".$a_row[5]."&&cID=".$a_row[6].
                         "&&cTitle=".$row[1]."&&secName=".$row[0]."&&sesName=".$a_row[0]."'>View Study Materials</a></td>";
                         $sess_date = new DateTime($a_row[1]);
-                        if (!$row3[0]) {
-                           /* if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
-                                $html_string .= "<td>Missed Thursday Deadline</td>";
-                            } else {*/
-                                $html_string .= "<td><a href='enroll-mentor-session.php?cID=".$a_row[6]."&&secID=".$a_row[5].
-                                "&&sesID=".$a_row[4]."'>Enroll</td>";
-                          //  }
+                        if ($sess_date < $todays_date) {
+                            $html_string .= "<td>Session ended</td>";
                         } else {
-                            $html_string .= "<td>Currently Enrolled</td>";
+                            if (!$row3[0]) {
+                                $html_string .= "<td><a href='enroll-mentor-session.php?cID=".$a_row[6]."&&secID=".$a_row[5].
+                                "&&sesID=".$a_row[4]."'>Participate</td>";
+                            } else {
+                                $html_string .= "<td>Currently Participating</td>";
+                            }
                         }
                     $html_string .= "</tr>";
             }
@@ -162,7 +162,7 @@
                     <th>Mentor Count</th>
                     <th>Mentee Count</th>
                     <th>View Study Material</th>
-                    <th>Enroll</th>
+                    <th>Participate</th>
                 </tr>";
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
                 Session.sesID, Session.secID, Session.cID
@@ -205,14 +205,18 @@
                         "&&cTitle=".$row[1]."&&secName=".$row[0]."&&sesName=".$a_row[0]."'>View Study Materials</a></td>";
 
                         $sess_date = new DateTime($a_row[1]);
-                        if (!$row3[0]) {
-                            if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
-                                $html_string .= "<td>Missed Thursday Deadline</td>";
-                            } else {
-                                $html_string .= "<td><a href='enroll-mentee-session.php?cID=".$a_row[6]."&&secID=".$a_row[5]."&&sesID=".$a_row[4]."'>Enroll</td>";
-                            }
+                        if ($sess_date < $todays_date) {
+                            $html_string .= "<td>Session ended</td>";
                         } else {
-                            $html_string .= "<td>Currently Enrolled</td>";
+                            if (!$row3[0]) {
+                                if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
+                                    $html_string .= "<td>Missed Thursday Deadline</td>";
+                                } else {
+                                    $html_string .= "<td><a href='enroll-mentee-session.php?cID=".$a_row[6]."&&secID=".$a_row[5]."&&sesID=".$a_row[4]."'>Participate</td>";
+                                }
+                            } else {
+                                $html_string .= "<td>Currently Participating</td>";
+                            }
                         }
                     $html_string .= "</tr>";
             } 

@@ -19,7 +19,7 @@
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
     $todays_date = new DateTime(date("Y-m-d"));
     $active_id = $_SESSION['active_ID'];
-    
+
     $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
     $result2 = mysqli_query($myconnection, $get_student_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result2);
@@ -72,7 +72,6 @@
         $end_date = new DateTime($row[3]);
         if ($todays_date < $end_date){
             array_push($busy, array($row[0], $row[1], $row[2], $row[3]));
-            echo("$row[0] - $row[1]");
         }
     }
     mysqli_free_result($result3);

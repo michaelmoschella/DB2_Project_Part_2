@@ -124,7 +124,9 @@
 );";
     $result2 = mysqli_query($myconnection, $get_small_sessions_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $html_string .= "
-    <h1>Notifications</h1>
+        <h1>Notifications</h1>
+    ";
+    $notification_string = "
     <h3>The following sessions need mentors assigned:</h3>
     <table style='width:25%' style='height:15%'>
         <tr>
@@ -135,10 +137,12 @@
             <th>Action</th>
         </tr>
     ";
+    $note_count = 0;
     while($a_row = mysqli_fetch_row($result2)) {
         $sess_date = new DateTime($a_row[3]);
         if (date_diff($sess_date, $fri_date)->format("%d") < 9){
-            $html_string .= "
+            $note_count++;
+            $notification_string .= "
             <tr>
                 <td>{$a_row[2]}</td>
                 <td>{$a_row[1]}</td>  
@@ -150,12 +154,17 @@
         }
     }
 
-    $html_string .= "</table>";
+    $notification_string .= "</table>";
 
 /********************************************************************************************* */
 
     mysqli_free_result($result2);
     echo($html_string);
+    if ($note_count) {
+        echo($notification_string);
+    } else {
+        echo("<h4>No notifications.</h4>");
+    }
     
     echo('<h3><a href="logout.php">Logout</a></h3>');
 

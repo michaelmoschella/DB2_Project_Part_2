@@ -60,6 +60,11 @@
             <td>$row[1]</td>
             <td><a href='student-view-sessions.php'>View Sessions</td>
         </tr>
+        <tr>
+            <td>$row[0]</td>
+            <td>$row[1]</td>
+            <td><a href='view-moderators.php'>View List of Moderators</td>
+        </tr>
         </table>
     ");
 
@@ -112,7 +117,8 @@
 
     $result2 = mysqli_query($myconnection, $get_small_sessions_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $html_string = "
-        <h1>Notifications:</h1>
+        <h1>Notifications</h1>";
+    $notification_string = "
         <h3>The following sessions you signed up for have been cancelled due to low mentee enrollment:</h3>
         <table style='width:25%' style='height:15%'>
             <tr>
@@ -122,10 +128,12 @@
                 <th>Date</th>
             </tr>
     ";
+    $note_count = 0;
     while($a_row = mysqli_fetch_row($result2)) {
         $sess_date = new DateTime($a_row[3]);
         if (date_diff($sess_date, $fri_date)->format("%d") < 9){
-            $html_string .= "
+            $note_count++;
+            $notification_string .= "
             <tr>
                 <td>{$a_row[2]}</td>
                 <td>{$a_row[1]}</td>  
@@ -134,9 +142,13 @@
             </tr>";
         }
     }
-    $html_string .= "</table>";
+    $notification_string .= "</table>";
     echo($html_string);
-
+    if ($note_count) {
+        echo($notification_string);
+    } else {
+        echo("<h4>No notifications.</h4>");
+    }
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
     mysqli_close($myconnection);

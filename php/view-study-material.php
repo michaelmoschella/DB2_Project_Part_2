@@ -48,7 +48,7 @@
                 <th>Notes</th>
                 </tr>";
                 
-                $get_session_material_query = "SELECT SessionMat.assigned, SessionMat.due, SessionMat.notes, Material.author, Material.type, Material.URL, Material.title FROM SessionMat, Material 
+    $get_session_material_query = "SELECT SessionMat.assigned, SessionMat.due, SessionMat.notes, Material.author, Material.type, Material.URL, Material.title FROM SessionMat, Material 
         WHERE SessionMat.sesID = {$ses_id} AND SessionMat.secID = {$sec_id} AND SessionMat.cId = {$c_id} AND SessionMat.matID = Material.matID";
     $result1 = mysqli_query($myconnection, $get_session_material_query) or die ('Query failed: ' . mysqli_error($myconnection));
     if (mysqli_num_rows($result1)) {
