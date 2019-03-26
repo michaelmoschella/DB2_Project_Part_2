@@ -116,12 +116,12 @@
                         "&&cTitle=".$row[1]."&&secName=".$row[0]."&&sesName=".$a_row[0]."'>View Study Materials</a></td>";
                         $sess_date = new DateTime($a_row[1]);
                         if (!$row3[0]) {
-                            if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
+                           /* if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
                                 $html_string .= "<td>Missed Thursday Deadline</td>";
-                            } else {
+                            } else {*/
                                 $html_string .= "<td><a href='enroll-mentor-session.php?cID=".$a_row[6]."&&secID=".$a_row[5].
                                 "&&sesID=".$a_row[4]."'>Enroll</td>";
-                            }
+                          //  }
                         } else {
                             $html_string .= "<td>Currently Enrolled</td>";
                         }
