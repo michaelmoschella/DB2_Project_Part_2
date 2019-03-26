@@ -5,6 +5,7 @@
     $c_ID = (isset($_GET['cID']) ? $_GET['cID'] : null); # get parameter from link
     $class_name = (isset($_GET['classname']) ? $_GET['classname'] : null);
     $mentor_req = (isset($_GET['mentorRequire']) ? $_GET['mentorRequire'] : null);
+    $sesID = (isset($_GET['sesID']) ? $_GET['sesID'] : null);
     echo(
         "<h1>{$sec_ID}</h1><br>"
     );
@@ -14,6 +15,10 @@
     );
     echo(
         "<h1>{$mentor_req}</h1>"
+    );
+
+    echo(
+        "<h1>{$sesID}</h1><br>"
     );
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
@@ -54,9 +59,11 @@
             <th>Assign</th>
           </tr>";
 
+          $get_info_query = "SELECT Teaches.orID FROM Teaches, SessTeach WHERE Teaches.orID = sessteach.orID AND teaches.orID NOT IN (SELECT orID FROM SessTeach WHERE SesID = $sesID);";
+          $result2 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
+while ($row2 = mysqli_fetch_row($result2)){
 
-
-    $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE role = 'Mentor' AND Student.sID = User.uID AND Student.grade >= $mentor_req;";
+    $get_info_query = "SELECT User.uID, User.name, Student.grade FROM User, Student WHERE role = 'Mentor' AND Student.sID = User.uID AND Student.grade >= $mentor_req  AND User.uID = $row2[0];";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     #$row = mysqli_fetch_row($result1);
     #mysqli_free_result($result1);
@@ -72,6 +79,8 @@
 
     $html_string .=   "<label>
     </table>";
+}
+
 
 /*
     echo("

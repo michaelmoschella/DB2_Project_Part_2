@@ -73,13 +73,13 @@
 
 
             while ($row = mysqli_fetch_row($result1)){
-                $get_mentor_count_query = "SELECT count(*) FROM Teaches 
+                $get_mentor_count_query = "SELECT count(*) FROM Teaches
                     WHERE Teaches.secID = {$row[11]} AND Teaches.cID = {$row[10]};";
                 $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $a_row1 = mysqli_fetch_row($result3);
                 mysqli_free_result($result3);
-                
-                $get_mentee_count_query = "SELECT COUNT(*) FROM Learns 
+
+                $get_mentee_count_query = "SELECT COUNT(*) FROM Learns
                     WHERE Learns.secID = {$row[11]} AND Learns.cID = {$row[10]};";
                 $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $a_row2 = mysqli_fetch_row($result4);
@@ -129,9 +129,20 @@
                           <td colspan = '2'>$row2[3]</th>
                           <td><form method='get' action='post-materials.php'>
                           <input type='hidden' value='".$row[1]."' name='mentorRequire'>
+                            <input type='hidden' value='".$row2[1]."' name='sesID'>
                           <input type='hidden' value='".$row[0]."' name='classname'>
                           <input type='hidden' value='".$row[10]."' name='cID'>
+                          <input type='hidden' value='".$row2[3]."' name='the_date'>
                           <button type='submit' value='".$row[11]."' name='secID'>Post
+
+                          </form></td>
+                          <td><form method='get' action='mentor-candidate-list.php'>
+                          <input type='hidden' value='".$row[1]."' name='mentorRequire'>
+                            <input type='hidden' value='".$row2[1]."' name='sesID'>
+                          <input type='hidden' value='".$row[0]."' name='classname'>
+                          <input type='hidden' value='".$row[10]."' name='cID'>
+                          <input type='hidden' value='".$row2[3]."' name='the_date'>
+                          <button type='submit' value='".$row[11]."' name='secID'>Assign Mentor
 
                           </form></td>
                     </tr>";}

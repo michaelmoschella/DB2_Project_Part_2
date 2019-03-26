@@ -5,15 +5,22 @@
     $c_ID = (isset($_GET['cID']) ? $_GET['cID'] : null); # get parameter from link
     $class_name = (isset($_GET['classname']) ? $_GET['classname'] : null);
     $mentor_req = (isset($_GET['mentorRequire']) ? $_GET['mentorRequire'] : null);
+    $ses_ID = (isset($_GET['sesID']) ? $_GET['sesID'] : null);
+    $date = (isset($_GET['the_date']) ? $_GET['the_date'] : null);
     echo(
         "<h1>{$sec_ID}</h1><br>"
     );
+
+
 
     echo(
         "<h1>{$c_ID}</h1><br>"
     );
     echo(
         "<h1>{$mentor_req}</h1>"
+    );
+    echo(
+        "<h1>{$ses_ID}</h1><br>"
     );
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
@@ -24,14 +31,22 @@
 
     $html_string =  "<h1>Student Register</h1>
 
-    <form>
+    <form action='materials-added.php' method='POST'>
+    <input type='hidden' name='c_ID' value='{$c_ID}'/>
+    <input type='hidden' name='sec_ID' value='{$sec_ID}'/>
+    <input type='hidden' name='ses_ID' value='{$ses_ID}'/>
+    <input type='hidden' name='date' value='{$date}'/>
       <label>
       Material Name:
-      <input placeholder='Material Name' type='text' name='Material Name'><br>
+      <input placeholder='Material Name' type='text' name='Material_Name'><br>
       </label>
       <label>
       Author:
       <input placeholder='Author' type='text' name='Author'><br>
+      </label>
+      <label>
+      Title:
+      <input placeholder='Title' type='text' name='Title'><br>
       </label>
       <label>
         Type:
@@ -45,9 +60,7 @@
         Notes:
       <textarea rows='5' cols='45' name='Notes'></textarea><br>
       </label>
-
-
-      <button onclick=''>Submit</button>
+      <button>Submit</button>
     </form>
 
     <h1>Post Materials For Current Section</h1>
