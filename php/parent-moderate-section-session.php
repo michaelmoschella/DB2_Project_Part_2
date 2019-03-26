@@ -97,13 +97,7 @@
                     <td>$row[2]</td>
                     <td>$a_row1[0]/$row[12]</td>
                     <td>$a_row2[0]/$row[13]</td>
-                    <td><form method='get' action='mentor-candidate-list.php'>
-                    <input type='hidden' value='".$row[1]."' name='mentorRequire'>
-                    <input type='hidden' value='".$row[0]."' name='classname'>
-                    <input type='hidden' value='".$row[10]."' name='cID'>
-                    <button type='submit' value='".$row[11]."' name='secID'>Assign Mentor
-
-                    </form></td></tr>";
+                    </tr>";
                     $get_section_info_query_two = "SELECT Session.announcement, Session.sesID, Session.name, Session.theDate
                         FROM Session, Section
                         WHERE Session.cID = Section.cID AND Session.secID = Section.secID AND Session.cID = $row[10] AND Session.secID = $row[11];";
