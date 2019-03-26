@@ -102,7 +102,8 @@
     $fri_date = date_sub($todays_date, date_interval_create_from_date_string($offset));
 
     
-    $get_small_sessions_query = "SELECT Session.name, Section.name, Course.title, Session.theDate 
+    $get_small_sessions_query = "SELECT Session.name, Section.name, Course.title, Session.theDate, 
+            Session.sesId, Session.secID, Session.cID, Course.orReq 
         FROM Session, Section, Course 
         WHERE
             Session.secID = Section.secID AND Session.cID = Section.cID AND
@@ -143,10 +144,12 @@
                 <td>{$a_row[1]}</td>  
                 <td>{$a_row[0]}</td>
                 <td>{$a_row[3]}</td>
-                <td><a href=''>Assign Mentors</a></td>
+                <td><a href='mentor-candidate-list.php?sesID=".$a_row[4]."&&secID=".$a_row[5].
+                    "&&cID=".$a_row[6]."&&class_name=".$a_row[2]."&&mentorRequire=".$a_row[7]."'>Assign Mentors</a></td>
             </tr>";
         }
     }
+
     $html_string .= "</table>";
 
 /********************************************************************************************* */
