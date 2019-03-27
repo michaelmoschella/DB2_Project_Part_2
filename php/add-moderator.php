@@ -9,7 +9,6 @@
     $c_id = $_GET['c__ID'];
     $sec_id = $_GET['sec__ID'];
 
-    echo("<h1>$c_id</h1>");
 
     $get_student_info_query = "INSERT INTO Moderates VALUES ({$sec_id}, {$c_id}, {$active_id});";
     $result2 = mysqli_query($myconnection, $get_student_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
