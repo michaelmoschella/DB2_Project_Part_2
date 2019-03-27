@@ -153,16 +153,62 @@
             </tr>";
         }
     }
+    mysqli_free_result($result2);
 
     $notification_string .= "</table>";
 
-/********************************************************************************************* */
+    $review_string =    "
+        <h3>The following reviews need to be verified:</h3>
+        <table style='width:25%' style='height:15%'>
+            <tr>
+                <th>Mentor Name</th>
+                <th>Mentee Name</th>
+                <th>Mentee Email</th>
+                <th>Course</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+        ";
 
-    mysqli_free_result($result2);
+    $find_reviews_query = "SELECT orID, eeID, secID, cID FROM Review NATURAL JOIN Moderates WHERE modID={$active_id} AND `verified`=0;"; 
+    $result2 = mysqli_query($myconnection, $find_reviews_query) or die ('Query failed: ' . mysqli_error($myconnection));
+    $review_count = 0;
+    while($a_row = mysqli_fetch_row($result2)) {
+        $review_count++;
+        $get_mentor_info_query = "SELECT `name` FROM User WHERE uID=$a_row[0];";
+        $result3 = mysqli_query($myconnection, $get_mentor_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row3 = mysqli_fetch_row($result3);
+        
+        $get_mentee_info_query = "SELECT `name`, email FROM User WHERE uID=$a_row[1];";
+        $result4 = mysqli_query($myconnection, $get_mentee_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row4 = mysqli_fetch_row($result4);
+
+        $get_class_info_query = "SELECT title, `name` FROM Course NATURAL JOIN Section WHERE secID=$a_row[2] AND cID=$a_row[3];";
+        $result5 = mysqli_query($myconnection, $get_class_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row5 = mysqli_fetch_row($result5);
+
+        $review_string .= "
+            <tr>
+                <td>{$row3[0]}</td>
+                <td>{$row4[0]}</td>  
+                <td>{$row4[1]}</td>
+                <td>{$row5[0]}</td>
+                <td>{$row5[1]}</td>
+                <td><a href='verify-review.php?orID=".$a_row[0]."&&eeID=".$a_row[1]."&&secID=".$a_row[2].
+                        "&&cID=".$a_row[3]."&&mentor=".$row3[0]."&&mentee=".$row4[0]."&&eeEmail=".$row4[1]."'>Verify Review</a></td>
+            </tr>";
+    }
+/********************************************************************************************* */
+    $review_string .= "</table>";
+
     echo($html_string);
     if ($note_count) {
         echo($notification_string);
-    } else {
+    }
+    if ($review_count) {
+        echo($review_string);
+    }
+    if (!$review_count && !$note_count) {
         echo("<h4>No notifications.</h4>");
     }
     

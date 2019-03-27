@@ -62,6 +62,16 @@
         </tr>
         <tr>
             <td>$row[0]</td>
+            <td>Mentee</td>
+            <td><a href='view-mentor-reviews.php'>View Mentor Reviews</td>
+        </tr>
+        <tr>
+            <td>$row[0]</td>
+            <td>Mentee</td>
+            <td><a href='can-i-write-review.php'>Write Mentor Review</td>
+        </tr>
+        <tr>
+            <td>$row[0]</td>
             <td>$row[1]</td>
             <td><a href='view-moderators.php'>View List of Moderators</td>
         </tr>
