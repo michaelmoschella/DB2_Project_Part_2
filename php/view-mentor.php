@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+view-mentor.php
+
+Provides a list of all mentors and mentees enrolled
+in sections that the logged in student is mentoring
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -29,6 +35,7 @@
         </style>
     </head>";
 
+    /* Get list of all sections the logged in student is mentoring*/
     $get_sec_info_query = "SELECT Section.name, Course.title, Teaches.secID,Teaches.cID FROM Section, Course, Teaches 
     WHERE {$active_id} = Teaches.orID AND Section.cID = Teaches.cID AND Section.secID = Teaches.secID AND Course.cID = Teaches.cID;";
     $result1 = mysqli_query($myconnection, $get_sec_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
@@ -45,9 +52,11 @@
                 <tr>
                     <td colspan = '3' style = 'text-align: center;'>Mentees</td>
                 </tr>";
+        /* Get list of all mentors enrolled in that section*/
         $get_mentors_query = "SELECT User.username, Student.grade, User.email FROM Teaches, User, Student 
             WHERE Teaches.orID = User.uID AND Teaches.orID = Student.sID AND Teaches.secID = $row[2] AND Teaches.cID = $row[3];";
         $result2 = mysqli_query($myconnection, $get_mentors_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        /* Get list of all mentees enrolled in that section*/
         $get_mentees_query = "SELECT User.username, Student.grade, User.email FROM Learns, User, Student 
             WHERE Learns.eeID = User.uID AND Learns.eeID = Student.sid AND Learns.secID = $row[2] AND Learns.cID = $row[3];";
         $result3 = mysqli_query($myconnection, $get_mentees_query) or die ('Query failed: ' . mysqli_error($myconnection));

@@ -1,4 +1,12 @@
 <?php
+/********************************************** 
+review-verified.php
+
+If review is accepted by moderator changes 
+verified field from 0 to 1 in Review table 
+indicating the review has been verified.
+Otherwise the review is removed from the Review table
+***********************************************/
     $or_ID = $_POST['or_ID'];
     $ee_ID = $_POST['ee_ID'];
     $c_ID = $_POST['c_ID'];

@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+student-login.php
+
+Check that student entered correct email and password
+and start session holding their uID
+***********************************************/
     session_start();
     $s_email = $_POST['Student_Email_Login'];
     $s_pass = $_POST['Student_Pass_Login'];

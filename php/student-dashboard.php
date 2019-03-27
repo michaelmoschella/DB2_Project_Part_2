@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+student-dashboard.php
+
+Displays actions available to the student as
+well as notifications for any  courses that were
+canceled for that week.
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -7,6 +14,7 @@
     
     $active_id = $_SESSION['active_ID'];
     
+    /* get info of logged in student */
     $get_info_query = "SELECT name, role, grade, email FROM User, Student WHERE {$active_id} = uID AND Student.sID = User.uID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);
@@ -78,6 +86,7 @@
         </table>
     ");
 
+    /* Get todays date and the date of the most recent friday */
     $todays_date = new DateTime(date("Y-m-d"));
     $today = date("D");
 
@@ -105,6 +114,7 @@
     }
     $fri_date = date_sub($todays_date, date_interval_create_from_date_string($offset));
 
+    /* Get sessions that the student is enrolled in that have fewer than 3 mentees  */
     $get_small_sessions_query = "SELECT Session.name, Section.name, Course.title, Session.theDate 
         FROM Session, Section, Course 
         WHERE
@@ -141,7 +151,8 @@
     $note_count = 0;
     while($a_row = mysqli_fetch_row($result2)) {
         $sess_date = new DateTime($a_row[3]);
-        if (date_diff($sess_date, $fri_date)->format("%d") < 9){
+        /* Find session in the coming week */
+        if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming the week ends on Sunday
             $note_count++;
             $notification_string .= "
             <tr>

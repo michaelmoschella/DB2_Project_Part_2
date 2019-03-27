@@ -1,4 +1,9 @@
 <?php
+/******************************************************* 
+view-study-materials.php
+
+View info about study materials for the specified session
+********************************************************/
     session_start();
   
     $myconnection = mysqli_connect('localhost', 'root', '') 

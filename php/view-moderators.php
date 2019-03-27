@@ -1,11 +1,16 @@
 <?php
+/********************************************** 
+view-moderators.php
+
+Displays a list of all moderators and their 
+contact info
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
-    
     $html_string = "
     <head>
         <style>
@@ -56,8 +61,6 @@
             </table>
         <label>";
     
-    
-
     echo($html_string);
 
     echo('<h3><a href="student-dashboard.php">Back to dashboard</a></h3>');

@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+register-student.php
+
+Takes info registed by students and inserts into
+the User table, Student table, and Family, as well as
+the Mentor and Mentee table if needed
+***********************************************/
     $s_email = $_POST['Student_Email'];
     $p_email = $_POST['Students_Parent_Email'];
     $s_pass = $_POST['Student_Pass'];

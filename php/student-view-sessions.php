@@ -1,10 +1,20 @@
 <?php
+/********************************************** 
+student-view-session.php
+
+Displays a list of all sessions for sections that
+the student has enrolled in and gives them the 
+option to participate if they are eligible.
+Also gives them the option to view study material
+for each session.
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
     
+    /* Get todays date and determine the date of the previous friday */
     $todays_date = new DateTime(date("Y-m-d"));
     $today = date("D");
 
@@ -55,6 +65,7 @@
     </head>
     <h1> Enroll in sessions as a mentor </h1>";
 
+    /* Get list of sections student is mentoring */
     $get_sec_info_query = "SELECT Section.name, Course.title, Section.secID, Section.cID FROM Section, Course, Teaches 
     WHERE {$active_id} = Teaches.orID 
     AND Section.secID = Teaches.secID AND Section.cID = Teaches.cID
@@ -76,6 +87,7 @@
             <th>Participate</th>
         </tr>";
 
+        /* Get list of sessions in those sections */
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
                 Session.sesID, Session.secID, Session.cID
             FROM Session, Section, Schedule
@@ -87,17 +99,20 @@
         
         if (mysqli_num_rows($result2)) {
             while($a_row = mysqli_fetch_row($result2)){
+                /* Get number of mentors participating in the session */
                 $get_mentor_count_query = "SELECT count(*) FROM SessTeach 
                     WHERE SessTeach.sesID = {$a_row[4]} AND SessTeach.secID = {$a_row[5]} AND SessTeach.cID = {$a_row[6]};";
                 $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row1 = mysqli_fetch_row($result3);
                 mysqli_free_result($result3);
                 
+                /* Get number of mentees participating in session */
                 $get_mentee_count_query = "SELECT COUNT(*) FROM SessLearn 
                     WHERE SessLearn.sesID = {$a_row[4]} AND SessLearn.secID = {$a_row[5]} AND SessLearn.cID = {$a_row[6]};";
                 $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row2 = mysqli_fetch_row($result4);
 
+                /* Determine if mentor is already participating in session*/
                 $is_mentoring_query = "SELECT COUNT(*) FROM SessTeach 
                     WHERE SessTeach.sesID = {$a_row[4]} AND SessTeach.secID = {$a_row[5]} AND SessTeach.cID = {$a_row[6]}
                             AND SessTeach.orID = $active_id;";
@@ -143,6 +158,7 @@
 
     $html_string .= "<h1>Enroll in sessions as a mentee</h1>"; 
 
+    /* Get List of sections student is a mentee in */
     $get_sec_info_query = "SELECT Section.name, Course.title, Section.secID, Section.cID FROM Section, Course, Learns 
     WHERE {$active_id} = Learns.eeID 
     AND Section.secID = Learns.secID AND Section.cID = Learns.cID
@@ -164,6 +180,7 @@
                     <th>View Study Material</th>
                     <th>Participate</th>
                 </tr>";
+        /* Get Sessions of those sections */
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
                 Session.sesID, Session.secID, Session.cID
             FROM Session, Section, Schedule
@@ -175,22 +192,25 @@
         
         if (mysqli_num_rows($result2)){
             while($a_row = mysqli_fetch_row($result2)){
+                /* Get number of mentors in those sessions */
                 $get_mentor_count_query = "SELECT count(*) FROM SessTeach 
                     WHERE SessTeach.sesID = {$a_row[4]} AND SessTeach.secID = {$a_row[5]} AND SessTeach.cID = {$a_row[6]};";
                 $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row1 = mysqli_fetch_row($result3);
                 mysqli_free_result($result3);
                 
+                /* Get number of mentees in those sessions */
                 $get_mentee_count_query = "SELECT COUNT(*) FROM SessLearn 
                     WHERE SessLearn.sesID = {$a_row[4]} AND SessLearn.secID = {$a_row[5]} AND SessLearn.cID = {$a_row[6]};";
                 $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row2 = mysqli_fetch_row($result4);
                 mysqli_free_result($result4);
-
-                $is_mentoring_query = "SELECT COUNT(*) FROM SessLearn 
+                
+                /* Determine if student is already participating in session*/
+                $is_menteeing_query = "SELECT COUNT(*) FROM SessLearn 
                     WHERE SessLearn.sesID = {$a_row[4]} AND SessLearn.secID = {$a_row[5]} AND SessLearn.cID = {$a_row[6]}
                             AND SessLearn.eeID = $active_id;";
-                $result5 = mysqli_query($myconnection, $is_mentoring_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $result5 = mysqli_query($myconnection, $is_menteeing_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row3 = mysqli_fetch_row($result5);
                 mysqli_free_result($result5);
 

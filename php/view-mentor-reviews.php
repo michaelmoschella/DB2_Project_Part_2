@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+view-mentor-reviews.php
+
+Provides a list of all mentors that have verified
+reviews as well as some overall stats about those 
+reviews.
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -41,6 +48,7 @@
             <th>View-Reviews</th
         </tr>";
 
+    /* Get stats for all mentors that have verified reviewed */
     $get_stats_query = "SELECT orID, AVG(rating), MAX(rating), MIN(rating), COUNT(rating) FROM Review WHERE verified=1 GROUP BY orID;"; 
     $result1 = mysqli_query($myconnection, $get_stats_query) or die ('Query failed: ' . mysqli_error($myconnection));
     
@@ -59,13 +67,9 @@
                     <td><a href ='view-reviews.php?orID=".$row[0]."&&orName=".$row2[0]."'>See all reviews</a></td>
                 </tr>";
     }
-
     $html_string .= "
             </table>
        ";
-    
-    
-
     echo($html_string);
 
     echo('<h3><a href="student-dashboard.php">Back to dashboard</a></h3>');

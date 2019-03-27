@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+write-review.php
+
+Provides a form for student to write a review
+about a mentor they recently studied with.
+***********************************************/
     session_start();
 
     $or_ID = $_GET['orID']; # get parameter from link
@@ -9,7 +15,6 @@
     $title = $_GET['title']; 
     $section = $_GET['section']; 
 
-  
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
@@ -39,7 +44,6 @@
       <button>Submit</button>
     </form>";
 
-  
     echo($html_string);
     echo("<h3><a href='student-dashboard.php'>Back to dashboard</a></h3>");
     echo("<h3><a href='logout.php'>Logout</a><h3>");

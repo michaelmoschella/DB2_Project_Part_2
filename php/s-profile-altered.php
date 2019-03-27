@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+s-profile-altered.php
+
+Makes changes to User table based on what information
+the student has altered.
+***********************************************/
     session_start();
 
     $s_email = $_POST['s_Email']; 
@@ -12,11 +18,11 @@
     if ($s_role == 'None') {
         $s_role = 'Student';
     }
-
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
+    /* Build query based on what information changed */
     $update_query = "UPDATE User SET";
     if ($s_email) {
         $update_query .= " email = '${s_email}',"; 

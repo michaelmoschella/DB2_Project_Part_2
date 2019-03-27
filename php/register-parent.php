@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+register-parent.php
+
+Takes info registed by parents and inserts into
+the User table Parent table, as well as
+the Moderator table if needed
+***********************************************/
   $p_email = $_POST['Parent_Email'];
   $p_pass = $_POST['Parent_Pass'];
   $p_pass_confirm  = $_POST['Parent_Confirm_Pass'];

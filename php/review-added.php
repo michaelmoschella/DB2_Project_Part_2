@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+review-added.php
+
+Inserts unverified review written by mentee into
+the Review table
+***********************************************/
     $or_ID = $_POST['or_ID'];
     $ee_ID = $_POST['ee_ID'];
     $c_ID = $_POST['c_ID'];
@@ -10,6 +16,7 @@
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
+    /* 0 indicates unverified */
     $update_query = "INSERT INTO Review 
     VALUES ({$or_ID}, {$ee_ID}, ${sec_ID}, ${c_ID}, {$rating}, '{$comment}', 0);";
     $result1 = mysqli_query($myconnection, $update_query) or die ('Query failed: ' . mysqli_error($myconnection));

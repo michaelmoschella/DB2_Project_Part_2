@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+verify-review.php
+
+Displays comment of review to moderator to determine
+if it is acceptable. 
+***********************************************/
+
     session_start();
 
     $or_ID = $_GET['orID']; # get parameter from link
@@ -8,8 +15,6 @@
     $ee_name = $_GET['mentee']; 
     $email = $_GET['eeEmail']; 
 
-
-  
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
