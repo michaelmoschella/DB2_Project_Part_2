@@ -1,4 +1,13 @@
 <?php
+/********************************************** 
+materials-added.php
+
+Adds study material to the Material table which
+stores info about the study material itself,
+ and the SessionMat table which stores information
+ relevant to the session the material was 
+ assigned to.
+***********************************************/
     $c_ID = $_POST['c_ID'];
     $sec_ID = $_POST['sec_ID'];
     $ses_ID = $_POST['ses_ID'];
@@ -25,9 +34,6 @@
         $matID = 1;
     }
     mysqli_free_result($result1);
-
-
-
 
     $update_query = "INSERT INTO Material VALUES
   (  '${matID}',    '${author_}',  '${type_}','${url_}','${title_}');";

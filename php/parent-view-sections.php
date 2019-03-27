@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+parent-view-sections.php
+
+Displays a list of all the sections displaying
+who is currently moderating or providing option
+to moderate.
+***********************************************/
     session_start();
 
     $parent_role = $_GET['parent_role']; # get parameter from link
@@ -14,27 +21,7 @@
 
     $todays_date = new DateTime(date("Y-m-d"));
 
-
-#  $active_id = $_SESSION['active_ID'];
-#  $get_student_info_query = "SELECT grade, role FROM User, Student WHERE {$active_id} = uID AND {$active_id} = sID;";
-#  $result2 = mysqli_query($myconnection, $get_student_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
-#  $row = mysqli_fetch_row($result2);
-#  $s_grade = $row[0];
-#  $s_role = $row[1];
-#  if ($s_role == 'Both') {
-#      $mentor = true;
-#      $mentee = false;
-#  } else if ($s_role == 'Mentor') {
-#      $mentor = true;
-#      $mentee = false;
-#  } else if ($s_role == 'Mentee') {
-#      $mentor = false;
-#      $mentee = true;
-#  } else {
-#      $mentor = false;
-#      $mentee = false;
-#  }
-
+    /* get section info */
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
         Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
@@ -86,12 +73,14 @@
     $html_string .= "</tr>";
 
     while ($row = mysqli_fetch_row($result1)){
+      /* Get number of mentors enrolled in section */
         $get_mentor_count_query = "SELECT count(*) FROM Teaches 
         WHERE Teaches.secID = {$row[11]} AND Teaches.cID = {$row[10]};";
         $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
         $row1 = mysqli_fetch_row($result3);
         mysqli_free_result($result3);
 
+        /* Get number of mentees enrolled in section */
         $get_mentee_count_query = "SELECT COUNT(*) FROM Learns 
         WHERE Learns.secID = {$row[11]} AND Learns.cID = {$row[10]};";
         $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
@@ -111,6 +100,7 @@
         <td>$row1[0]/$row[12]</td>
         <td>$row2[0]/$row[13]</td>";
         if($parent_role=='Moderator'){
+          /* Get info for which parent is moderating which course */
             $get_info_query = "SELECT Moderates.secID, Moderates.cID, Moderates.modID, User.name FROM Moderates, User WHERE Moderates.modID = User.uID;";
             $result0 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
@@ -126,6 +116,7 @@
                     }
                 }
             }
+            /* Determine if section already ended */
             if ($todays_date > $end_date) {
                 $html_string .= "<td>Section has ended</td>";
             } else {
@@ -134,8 +125,6 @@
                     <td><form method='get' action='add-moderator.php'><input type='hidden' value='".$row[10]."' name='c__ID'>
                     <button type='submit' value='".$row[11]."' name='sec__ID'>Moderate
                     </form>";
-                    #  <td><button onClick=''>Moderate</button>";
-                    #<a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>
                 } else if($test==1) {
                     $html_string .= "
                     <td>Moderating Section</button>";
@@ -145,29 +134,11 @@
                 }
             }
             $html_string .= "</td>";
-            ##      if ($s_grade >= $row[1] && $mentor){
-            ##      $html_string .= "
-            ##            <td><button onClick=''>Teach</button></td>
-            ##        ";
-            ##      } else {
-            #          $html_string .= "<td>N/A</td>";
-            #      }
-            #      if ($s_grade >= $row[2] && $mentee){
-            #          $html_string .= "<td><a href='enroll-mentee.php?cID=".$row[10]."&&secID=".$row[11]."'>Enroll</a></td>";
-            #      } else {
-            #          $html_string .= "<td>N/A</td>";
-            #      }
-            #      $html_string .= "</tr>";
         }
     }
     mysqli_free_result($result1);
     $html_string .= "</table>";
     echo($html_string);
-    /* $get_info_query = "SELECT name, role, grade FROM User, Student WHERE {$active_id} = uID AND Student.sID = User.uID;";
-    $result2 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
-    mysqli_free_result($result2);
-    */
-
 
     echo('<h3><a href="parent-dashboard.php">Back to dashboard</a></h3>');
     echo('<h3><a href="logout.php">Logout</a></h3>');

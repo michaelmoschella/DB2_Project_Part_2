@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+can-i-write-review.php
+
+Checks whether mentee was in a section with a 
+mentor that has ended and has not written a review
+for them yet. 
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -42,21 +49,25 @@
     $todays_date = new DateTime(date("Y-m-d"));
     
     $count = 0;
+    /* Get sections and mentors from sections mentee was a part of */
     $get_recent_mentor_query = "SELECT orID, secID, cID FROM Teaches NATURAL JOIN Learns WHERE eeID = {$active_id};";
     $result1 = mysqli_query($myconnection, $get_recent_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
     while ($row = mysqli_fetch_row($result1)) {
+        /* Get the dates of those sections */
         $get_end_date_query = "SELECT endDate, startDate From Section Where secID={$row[1]} AND cID={$row[2]};";
             $result2 = mysqli_query($myconnection, $get_end_date_query) or die ('Query failed: ' . mysqli_error($myconnection));
             $row2 = mysqli_fetch_row($result2);
             mysqli_free_result($result2);
             $sec_end_date = new DateTime($row2[0]);
             if ($sec_end_date < $todays_date) {
+                /*Check if a review for that mentor in that section has been written */
                 $already_written_query = "SELECT COUNT(*) FROM Review WHERE orID=$row[0] AND eeID=$active_id AND secID={$row[1]} AND cID={$row[2]};";
                     $result3 = mysqli_query($myconnection, $already_written_query) or die ('Query failed: ' . mysqli_error($myconnection));
                     $row3 = mysqli_fetch_row($result3);
                     mysqli_free_result($result3);
             if (!$row3[0]) {
                 $count++;
+                /*If not display info */
                 $get_or_info_query = "SELECT username, `name` FROM User WHERE uID=$row[0];";
                 $result4 = mysqli_query($myconnection, $get_or_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
                 $row4 = mysqli_fetch_row($result4);

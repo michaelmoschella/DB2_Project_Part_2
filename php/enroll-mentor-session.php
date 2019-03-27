@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+enroll-mentor-session.php
+
+Puts mentors id and session info in the SessTeach
+table which stores which mentors are enrolled
+in which sessions.
+***********************************************/
     session_start();
   
     $myconnection = mysqli_connect('localhost', 'root', '') 

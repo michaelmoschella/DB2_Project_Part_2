@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+p-profile-altered.php
+
+Inserts new info for parent profile in User
+table.
+***********************************************/
     session_start();
 
     $p_email = $_POST['Parent_Email']; 
@@ -17,6 +23,7 @@
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
+    /* build query based on what info was entered*/
     $update_query = "UPDATE User SET";
     if ($p_email) {
         $update_query .= " email = '${p_email}',"; 

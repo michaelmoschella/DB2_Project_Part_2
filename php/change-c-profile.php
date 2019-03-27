@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+change-c-profile.php
+
+parent provide inputs for changing their childs
+profile information
+***********************************************/
     session_start();
 
     $c_ID = $_GET['cID']; # get parameter from link
@@ -9,6 +15,7 @@
 
     $active_id = $_SESSION['active_ID'];
 
+    /* Get childs current information from User table */
     $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$c_ID} = uID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);
@@ -46,10 +53,10 @@
             <label>
                 Role:
                 <select name='c_role'>
+                    <option value='Both'>Both</option>
                     <option value='None'>None</option>
                     <option value='Mentor'>Moderator</option>
                     <option value='Mentee'>Mentee</option>
-                    <option value='Both'>Both</option>
                 </select><br>
             </label>
 

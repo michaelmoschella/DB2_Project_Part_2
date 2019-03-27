@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+logout.php
+
+Ends session with variable indicating who
+was logged in. (logging them out)
+***********************************************/
     session_start();
     if (session_destroy()) {
         echo ("

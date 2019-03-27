@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+parent-dashboard.php
+
+Displays various actions as well as notification
+for parent user.
+***********************************************/
     session_start();
 
     $myconnection = mysqli_connect('localhost', 'root', '')
@@ -7,6 +13,7 @@
 
     $active_id = $_SESSION['active_ID'];
 
+    /*get info of logged in parent*/
     $get_info_query = "SELECT name, role FROM User WHERE {$active_id} = uID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);
@@ -44,6 +51,7 @@
             <td><a href='change-p-profile.php'>Change Your Profile</a></td>
         </tr>";
         
+        /* Get children of logged in parent */
         $get_children_query = "SELECT name, role, uid FROM User, Family WHERE Family.pID = {$active_id} AND Family.sID = User.uID;";
         $result2 = mysqli_query($myconnection, $get_children_query) or die ('Query failed: ' . mysqli_error($myconnection));
         while ($row = mysqli_fetch_row($result2)) {
@@ -73,7 +81,7 @@
     }
     $html_string .= "</table>";
 
-
+    /* get todays date and calculate date of previous friday */
     $todays_date = new DateTime(date("Y-m-d"));
     $today = date("D");
 
@@ -101,7 +109,7 @@
     }
     $fri_date = date_sub($todays_date, date_interval_create_from_date_string($offset));
 
-    
+    /* get info of sessions parent is moderating with less than 2 mentors*/
     $get_small_sessions_query = "SELECT Session.name, Section.name, Course.title, Session.theDate, 
             Session.sesId, Session.secID, Session.cID, Course.orReq 
         FROM Session, Section, Course 
@@ -140,7 +148,8 @@
     $note_count = 0;
     while($a_row = mysqli_fetch_row($result2)) {
         $sess_date = new DateTime($a_row[3]);
-        if (date_diff($sess_date, $fri_date)->format("%d") < 9){
+        /* determine which session are in the coming week */
+        if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming week ends on Sunday
             $note_count++;
             $notification_string .= "
             <tr>
@@ -169,7 +178,7 @@
                 <th>Action</th>
             </tr>
         ";
-
+    /* Find reviews from sessions parent moderated that need to be verified */
     $find_reviews_query = "SELECT orID, eeID, secID, cID FROM Review NATURAL JOIN Moderates WHERE modID={$active_id} AND `verified`=0;"; 
     $result2 = mysqli_query($myconnection, $find_reviews_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $review_count = 0;
@@ -198,7 +207,6 @@
                         "&&cID=".$a_row[3]."&&mentor=".$row3[0]."&&mentee=".$row4[0]."&&eeEmail=".$row4[1]."'>Verify Review</a></td>
             </tr>";
     }
-/********************************************************************************************* */
     $review_string .= "</table>";
 
     echo($html_string);
@@ -211,7 +219,6 @@
     if (!$review_count && !$note_count) {
         echo("<h4>No notifications.</h4>");
     }
-    
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
     mysqli_close($myconnection);
