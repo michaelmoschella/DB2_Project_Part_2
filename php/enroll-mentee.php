@@ -1,4 +1,11 @@
 <?php
+/********************************************** 
+enroll-mentee.php
+
+Puts mentees id and section info in the Learns
+table which stores which mentees are enrolled
+in which sections.
+***********************************************/
     session_start();
   
     $myconnection = mysqli_connect('localhost', 'root', '') 

@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+parent-login.php
+
+Check that parent entered correct email and password
+and start session holding their uID
+***********************************************/
     session_start();
     $p_email = $_POST['Parent_Email_Login'];
     $p_pass = $_POST['Parent_Pass_Login'];
@@ -19,7 +25,6 @@
             echo("<h1>Welcome {$p_username}, you have successfully logged in!</h1>
                 <h3><a href='./parent-dashboard.php'>Click here to go to your parent dashboard</a></h3>
                 <h5><a href='./logout.php'>Logout</a></h5>");
-
         } else {
             echo("<h1>Sorry, the provided password does not match the account for {$p_email}</h1>
             <h3><a href='../Phase2.html'>Back to main page</a></h3>");

@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+change-p-profile.php
+
+Gives inputs for parent to change their 
+profile information
+***********************************************/
     session_start();
     
     $myconnection = mysqli_connect('localhost', 'root', '') 
@@ -7,6 +13,7 @@
     
     $active_id = $_SESSION['active_ID'];
     
+    /*Get parents current information from user table*/
     $get_info_query = "SELECT name, username, password, email, phone, role FROM User WHERE {$active_id} = uID;";
     $result1 = mysqli_query($myconnection, $get_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $row = mysqli_fetch_row($result1);

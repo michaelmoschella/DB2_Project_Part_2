@@ -1,4 +1,10 @@
 <?php
+/********************************************** 
+c-profile-altered.php
+
+makes changes to childs info in User table
+***********************************************/
+
     $c_ID = $_POST['c_ID'];
     $c_email = $_POST['c_Email'];
     $c_pass = $_POST['Parents_Children_Pass'];
@@ -16,6 +22,7 @@
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
+    /* Build Query based on what fields were changed */
     $update_query = "UPDATE User SET";
     if ($c_email) {
         $update_query .= " email = '${c_email}',";
@@ -43,6 +50,7 @@
         <h3><a href='parent-dashboard.php'>Back to dashboard</a></h3>
         <h3><a href='logout.php'>Logout</a>"
     );
+    // need to remove from mentor mentee table
 
     mysqli_close($myconnection);
     exit;
