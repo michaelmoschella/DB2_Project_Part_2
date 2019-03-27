@@ -11,19 +11,26 @@ different sessions
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
 
+    $active_id = $_SESSION['active_ID'];
+
     /* get section information */
     $get_section_info_query = "SELECT Course.title, Course.orReq, Course.eeReq,
         Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
         Course.cID, Section.SecID,
-        Section.mentorCap, Section.menteeCap
-        FROM Course, Section, Schedule
+        Section.mentorCap, Section.menteeCap, Course.description
+        FROM Course, Section, Schedule, Moderates
         WHERE Course.cID = Section.cID AND
-            Section.schedID = Schedule.schedID;";
+            Section.secID = Moderates.secID AND
+            Section.cID = Moderates.cID AND
+            Course.cID = Moderates.cID AND
+            Section.schedID = Schedule.schedID AND
+            Moderates.modID = {$active_id};";
     $result1 = mysqli_query($myconnection, $get_section_info_query) or die ('Query failed: ' . mysqli_error($myconnection));
 
+
     $html_string = "
-        <h1>Section List</h1>
+        <h1>Section Session List</h1>
         <head>
             <style>
                 table {
@@ -54,7 +61,7 @@ different sessions
                 <th>Mentee Req</th>
                 <th>Enrolled Mentor</th>
                 <th>Enrolled Mentee</th>
-                <th colspan = '2'>Moderate as Moderator</th>
+                <th colspan = '2'>Description</th>
             </tr>";
 
     while ($row = mysqli_fetch_row($result1)){
@@ -84,7 +91,7 @@ different sessions
             <td>$row[2]</td>
             <td>$a_row1[0]/$row[12]</td>
             <td>$a_row2[0]/$row[13]</td>
-            <td colspan = '2'>Moderate $row[3]:</td>
+            <td colspan = '2'>$row[14]:</td>
             </tr>";
 
             /* Get information about sessions of that section */
@@ -95,12 +102,26 @@ different sessions
 
             $count=0;
             while ($row2 = mysqli_fetch_row($result2)){
+                /* Get number of mentors participating in the session */
+                $get_mentor_count_query = "SELECT count(*) FROM SessTeach 
+                    WHERE SessTeach.sesID = {$row2[1]} AND SessTeach.secID = {$row[11]} AND SessTeach.cID = {$row[10]};";
+                $result3 = mysqli_query($myconnection, $get_mentor_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $count1 = mysqli_fetch_row($result3);
+                mysqli_free_result($result3);
+                
+                /* Get number of mentees participating in session */
+                $get_mentee_count_query = "SELECT COUNT(*) FROM SessLearn 
+                    WHERE SessLearn.sesID = {$row2[1]} AND SessLearn.secID = {$row[11]} AND SessLearn.cID = {$row[10]};";
+                $result4 = mysqli_query($myconnection, $get_mentee_count_query) or die ('Query failed: ' . mysqli_error($myconnection));
+                $count2 = mysqli_fetch_row($result4);               
 
                 if($count==0){$html_string .=  "<tr>
-                    <th colspan='4' style = 'text-align: center;''>Session Info</th>
-                    <th colspan = '2'>Session ID</th>
+                    <th colspan='3' style = 'text-align: center;''>Session Info</th>
+                    <th colspan = '1'>Session ID</th>
                     <th colspan = '2'>Session Name</th>
                     <th colspan = '2'>Date</th>
+                    <th>Mentor Count</th>
+                    <th>Mentee Count</th>
                     <th>Post Session Materials</th>
                     <th>Assign Mentor for Session</th>
                 </tr>";}
@@ -108,10 +129,12 @@ different sessions
 
 
                 $html_string .= "<tr>
-                    <td colspan='4' style = 'text-align: center;''>$row2[0]</th>
-                    <td colspan = '2'>$row2[1]</th>
+                    <td colspan='3' style = 'text-align: center;''>$row2[0]</th>
+                    <td colspan = '1'>$row2[1]</th>
                     <td colspan = '2'>$row2[2]</th>
                     <td colspan = '2'>$row2[3]</th>
+                    <td>$count1[0]/3</td>
+                    <td>$count2[0]/6</td>
                     <td><form method='get' action='post-materials.php'>
                     <input type='hidden' value='".$row[1]."' name='mentorRequire'>
                     <input type='hidden' value='".$row2[1]."' name='sesID'>

@@ -49,10 +49,10 @@ profile information
             <label>
                 Role:
                 <select name='s_role'>
-                    <option value='None'>None</option>
-                    <option value='Mentor'>Moderator</option>
-                    <option value='Mentee'>Mentee</option>
                     <option value='Both'>Both</option>
+                    <option value='Mentor'>Mentor</option>
+                    <option value='Mentee'>Mentee</option>
+                    <option value='None'>None</option>
                 </select><br>
             </label>
             <button>Submit Changes</button>

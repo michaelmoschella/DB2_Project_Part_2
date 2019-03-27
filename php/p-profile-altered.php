@@ -3,7 +3,7 @@
 p-profile-altered.php
 
 Inserts new info for parent profile in User
-table.
+table and adds to Moderator table if necessary.
 ***********************************************/
     session_start();
 
@@ -15,13 +15,22 @@ table.
     $p_phone = $_POST['Parent_Phone_Number'];
     $p_username = $_POST['p_username'];
 
-    if ($p_role == 'None') {
-        $p_role = 'Parent';
-    }
-
     $myconnection = mysqli_connect('localhost', 'root', '') 
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
+
+    if ($p_role == 'None') {
+        $p_role = 'Parent';
+    } else {
+        $check_moderator_query = "SELECT count(*) FROM Moderator WHERE modID={$_SESSION['active_ID']};";
+        $result1 = mysqli_query($myconnection, $check_moderator_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row = mysqli_fetch_row($result1);
+        if (!$row[0]) {
+            $insert_moderator_query = "INSERT INTO Moderator VALUEs({$_SESSION['active_ID']});";
+            $result1 = mysqli_query($myconnection, $insert_moderator_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        }
+    }
+
 
     /* build query based on what info was entered*/
     $update_query = "UPDATE User SET";

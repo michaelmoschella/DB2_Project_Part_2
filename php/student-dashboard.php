@@ -21,7 +21,7 @@ canceled for that week.
     mysqli_free_result($result1);
     
     echo('<h1>Your Dashboard</h1>');
-    echo("
+    $html_string = "
         <h3>Your grade is {$row[2]}</h3>
         <head>
             <style>
@@ -60,31 +60,35 @@ canceled for that week.
         </tr>
         <tr>
             <td>$row[0]</td>
-            <td>Mentor</td>
-            <td><a href='view-mentor.php'>View Mentor</a></td>
-        </tr>
-        <tr>
-            <td>$row[0]</td>
             <td>$row[1]</td>
             <td><a href='student-view-sessions.php'>View Sessions</td>
-        </tr>
-        <tr>
-            <td>$row[0]</td>
-            <td>Mentee</td>
-            <td><a href='view-mentor-reviews.php'>View Mentor Reviews</td>
-        </tr>
-        <tr>
-            <td>$row[0]</td>
-            <td>Mentee</td>
-            <td><a href='can-i-write-review.php'>Write Mentor Review</td>
-        </tr>
-        <tr>
-            <td>$row[0]</td>
-            <td>$row[1]</td>
-            <td><a href='view-moderators.php'>View List of Moderators</td>
-        </tr>
-        </table>
-    ");
+        </tr>";
+        if ($row[1]=='Mentor' || $row[1]=='Both'){
+            $html_string .="
+            <tr>
+                <td>$row[0]</td>
+                <td>Mentor</td>
+                <td><a href='view-mentor.php'>View Mentor</a></td>
+            </tr>";
+        }
+        $html_string .= "
+            <tr>
+                <td>$row[0]</td>
+                <td>Student</td>
+                <td><a href='view-mentor-reviews.php'>View Mentor Reviews</td>
+            </tr>
+            <tr>
+                <td>$row[0]</td>
+                <td>Mentee</td>
+                <td><a href='can-i-write-review.php'>Write Mentor Review</td>
+            </tr>
+            <tr>
+                <td>$row[0]</td>
+                <td>$row[1]</td>
+                <td><a href='view-moderators.php'>View List of Moderators</td>
+            </tr>
+            </table>
+        ";
 
     /* Get todays date and the date of the most recent friday */
     $todays_date = new DateTime(date("Y-m-d"));
@@ -136,7 +140,7 @@ canceled for that week.
 );";
 
     $result2 = mysqli_query($myconnection, $get_small_sessions_query) or die ('Query failed: ' . mysqli_error($myconnection));
-    $html_string = "
+    $html_string .= "
         <h1>Notifications</h1>";
     $notification_string = "
         <h3>The following sessions you signed up for have been cancelled due to low mentee enrollment:</h3>

@@ -67,7 +67,7 @@ student is eligible to enroll or not.
         Section.name, Section.tuition, Section.startDate, Section.endDate,
         Schedule.startTime, Schedule.endTime, Schedule.days,
         Course.cID, Section.SecID,
-        Section.mentorCap, Section.menteeCap 
+        Section.mentorCap, Section.menteeCap, Course.description 
         FROM Course, Section, Schedule 
         WHERE Course.cID = Section.cID AND
             Section.schedID = Schedule.schedID;";
@@ -115,6 +115,7 @@ student is eligible to enroll or not.
             <tr>
                 <th>Course Title</th>
                 <th>Section Name</th>
+                <th>Description</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Time Slot</th>
@@ -163,6 +164,7 @@ student is eligible to enroll or not.
                 <tr>
                     <td>$row[0]</td>
                     <td>$row[3]</td>
+                    <td>$row[14]</td>
                     <td>$row[5]</td>
                     <td>$row[6]</td>
                     <td>$row[7] - $row[8]</td>

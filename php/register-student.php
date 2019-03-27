@@ -59,10 +59,9 @@ the Mentor and Mentee table if needed
             $insert_mentee_query = "INSERT INTO Mentee VALUES({$s_id});";
             $result5 = mysqli_query($myconnection, $insert_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
             # Do we need to handle when one of the queries fails????????????????????????????
-
-            echo("<h1>Congratulations {$s_username}, you have successfully registered!</h1>
-            <h3><a href='../Phase2.html'>Back to main page</a></h3>");
         }
+        echo("<h1>Congratulations {$s_username}, you have successfully registered!</h1>
+        <h3><a href='../Phase2.html'>Back to main page</a></h3>");
     } else {
         # parent not found in database
         echo("<h1>Parent not found!</h1>

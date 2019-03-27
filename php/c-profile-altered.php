@@ -2,7 +2,8 @@
 /********************************************** 
 c-profile-altered.php
 
-makes changes to childs info in User table
+makes changes to childs info in User table 
+and adds to Mentee and Mentor tables if necessary.
 ***********************************************/
 
     $c_ID = $_POST['c_ID'];
@@ -14,13 +15,31 @@ makes changes to childs info in User table
     $c_phone = $_POST['Parent_Children_Phone_Number'];
     $c_username = $_POST['c_username'];
 
-    if ($c_role == 'None') {
-        $c_role = 'Student';
-    }
-
     $myconnection = mysqli_connect('localhost', 'root', '')
     or die ('Could not connect: ' . mysqli_error());
     $mydb = mysqli_select_db ($myconnection, 'DB2') or die ('Could not select database');
+
+    if ($c_role == 'None') {
+        $c_role = 'Student';
+    }
+    if ($c_role == 'Mentor' || $c_role == 'Both'  ){
+        $check_mentor_query = "SELECT count(*) FROM Mentor WHERE orID=$c_ID;";
+        $result1 = mysqli_query($myconnection, $check_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row = mysqli_fetch_row($result1);
+        if (!$row[0]) {
+            $insert_mentor_query = "INSERT INTO Mentor VALUES($c_ID);";
+            $result1 = mysqli_query($myconnection, $insert_mentor_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        }
+    }
+    if ($c_role == 'Mentee' || $c_role == 'Both'  ){
+        $check_mentee_query = "SELECT count(*) FROM Mentee WHERE eeID=$c_ID;";
+        $result1 = mysqli_query($myconnection, $check_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        $row = mysqli_fetch_row($result1);
+        if (!$row[0]) {
+            $insert_mentee_query = "INSERT INTO Mentee VALUES($c_ID);";
+            $result1 = mysqli_query($myconnection, $insert_mentee_query) or die ('Query failed: ' . mysqli_error($myconnection));
+        }
+    }
 
     /* Build Query based on what fields were changed */
     $update_query = "UPDATE User SET";

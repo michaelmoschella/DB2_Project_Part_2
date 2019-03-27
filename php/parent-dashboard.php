@@ -51,33 +51,43 @@ for parent user.
             <td><a href='change-p-profile.php'>Change Your Profile</a></td>
         </tr>";
         
-        /* Get children of logged in parent */
-        $get_children_query = "SELECT name, role, uid FROM User, Family WHERE Family.pID = {$active_id} AND Family.sID = User.uID;";
-        $result2 = mysqli_query($myconnection, $get_children_query) or die ('Query failed: ' . mysqli_error($myconnection));
-        while ($row = mysqli_fetch_row($result2)) {
-            # pass childs uID through link
-            $html_string .= " <tr>
-            <td>{$row[0]}</td>
-            <td>Student</td>
-            <td><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></td>
-            </tr> ";
-        }
-        
-        $html_string .= "<tr>
-        <td>Parent</td>
-      <td>Section</td>
-      <td><a href='parent-view-sections.php?parent_role=".$p_role."'>View Sections</a></td>
-      </tr>";
-      
-      if($p_role == 'Moderator'){
-      $html_string .= "
-      <tr>
-      <td>Moderator</td>
-      <td>Moderator</td>
-      <td><a href='parent-moderate-section-session.php'>View Moderator</a></td>
-      </tr>
+    /* Get children of logged in parent */
+    $get_children_query = "SELECT name, role, uid FROM User, Family WHERE Family.pID = {$active_id} AND Family.sID = User.uID;";
+    $result2 = mysqli_query($myconnection, $get_children_query) or die ('Query failed: ' . mysqli_error($myconnection));
+    while ($row = mysqli_fetch_row($result2)) {
+        # pass childs uID through link
+        $html_string .= " <tr>
+        <td>{$row[0]}</td>
+        <td>Student</td>
+        <td><a href='change-c-profile.php?cID=".$row[2]."'>Change Your Child's Profile</a></td>
+        </tr> ";
+    }
+    
+    $html_string .= "<tr>
+            <td>Parent</td>
+            <td>Section</td>
+            <td><a href='parent-view-sections.php?parent_role=".$p_role."'>View Sections</a></td>
+        </tr>";
+    
+    if($p_role == 'Moderator'){
+        $html_string .= "
+            <tr>
+                <td>Moderator</td>
+                <td>Moderator</td>
+                <td><a href='parent-moderate-section-session.php'>View Moderator</a></td>
+            </tr>
 
-      ";
+        ";
+    }
+    if($p_role == 'Moderator'){
+        $html_string .= "
+            <tr>
+                <td>Moderator</td>
+                <td>Moderator</td>
+                <td><a href='view-students.php'>View Students</a></td>
+            </tr>
+
+        ";
     }
     $html_string .= "</table>";
 

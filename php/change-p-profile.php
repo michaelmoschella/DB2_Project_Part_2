@@ -48,13 +48,13 @@ profile information
         </label>
         <label>
             Email:
-            <input placeholder='{$row[5]}' type='text' name='Parent_Email'><br>
+            <input placeholder='{$row[3]}' type='text' name='Parent_Email'><br>
         </label>
         <label>
             Role:
             <select name='p_role'>
-                <option value='None'>None</option>
                 <option value='Moderator'>Moderator</option>
+                <option value='None'>None</option>
             </select><br>
         </label>
             <button>Submit Changes</button>

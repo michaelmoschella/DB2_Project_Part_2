@@ -63,7 +63,7 @@ for each session.
             }
         </style>
     </head>
-    <h1> Enroll in sessions as a mentor </h1>";
+    <h1> Participate in sessions as a mentor </h1>";
 
     /* Get list of sections student is mentoring */
     $get_sec_info_query = "SELECT Section.name, Course.title, Section.secID, Section.cID FROM Section, Course, Teaches 
@@ -75,10 +75,11 @@ for each session.
         $html_string .= "<label>
         <table style='width:25%' style='height:15%'>
         <tr>
-            <td colspan = '7' style = 'text-align: center'><h4>{$row[1]} {$row[0]}</h4></td>
+            <td colspan = '8' style = 'text-align: center'><h4>{$row[1]} {$row[0]}</h4></td>
         </tr>
         <tr>
             <th>Session Name</th>
+            <th>Announcement</th>
             <th>Date</th>
             <th>Time</th>
             <th>Mentor Count</th>
@@ -89,7 +90,7 @@ for each session.
 
         /* Get list of sessions in those sections */
         $get_sessions_query ="SELECT Session.name, Session.theDate, Schedule.startTime, Schedule.endTime,
-                Session.sesID, Session.secID, Session.cID
+                Session.sesID, Session.secID, Session.cID, Session.announcement
             FROM Session, Section, Schedule
             WHERE 
                 Session.secID = Section.secID AND Session.cID = Section.cID
@@ -123,6 +124,7 @@ for each session.
                 $html_string .="
                     <tr>
                         <td>{$a_row[0]}</td>
+                        <td>{$a_row[7]}</td>
                         <td>{$a_row[1]}</td>
                         <td>{$a_row[2]}-{$a_row[3]}</td>
                         <td>{$row1[0]}</td>
@@ -145,7 +147,7 @@ for each session.
         } else {
             $html_string .= "
                 <tr>
-                    <td colspan = '7' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
+                    <td colspan = '8' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
                 </tr>
             ";
         }
@@ -156,7 +158,7 @@ for each session.
     }
     mysqli_free_result($result1);
 
-    $html_string .= "<h1>Enroll in sessions as a mentee</h1>"; 
+    $html_string .= "<h1>Participate in sessions as a mentee</h1>"; 
 
     /* Get List of sections student is a mentee in */
     $get_sec_info_query = "SELECT Section.name, Course.title, Section.secID, Section.cID FROM Section, Course, Learns 
@@ -229,6 +231,7 @@ for each session.
                             $html_string .= "<td>Session ended</td>";
                         } else {
                             if (!$row3[0]) {
+                                /*mentees can not enroll after Thursday for sessions in the upcoming week*/
                                 if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming weeks start on mon end on Sun
                                     $html_string .= "<td>Missed Thursday Deadline</td>";
                                 } else {
@@ -243,7 +246,7 @@ for each session.
         } else {
             $html_string .= "
                 <tr>
-                    <td colspan = '6' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
+                    <td colspan = '8' style = 'text-align: center;'>No sessions have been scheduled.</h4></td>
                 </tr>
             ";
         }

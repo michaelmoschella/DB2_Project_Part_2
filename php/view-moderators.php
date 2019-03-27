@@ -31,8 +31,8 @@ contact info
         </style>
     </head>";
 
-    $get_moderators_query = "SELECT User.name, User.username, User.email, User.phone FROM User, Moderator 
-    WHERE User.uID = Moderator.modID";
+    $get_moderators_query = "SELECT User.name, User.username, User.email, User.phone FROM User
+    WHERE User.role='Moderator';";
     $result1 = mysqli_query($myconnection, $get_moderators_query) or die ('Query failed: ' . mysqli_error($myconnection));
     $html_string .=     
         "<label>

@@ -2,7 +2,7 @@
 /******************************************************* 
 view-study-materials.php
 
-View info about study materials for the specified session
+View info about study materials for the specified session.
 ********************************************************/
     session_start();
   
