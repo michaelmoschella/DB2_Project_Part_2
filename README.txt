@@ -55,6 +55,20 @@ enrolled in. When a review needs to be verified it is displayed in the
 notification system on the moderators dashboard. Once verified all students
 can see the reviews for all mentors. 
 
+I believe the tables are set up to have some notifications displaying
+for most of April.
+
+You can log in as becky the moderator to see notifications for assigning mentors:
+email = becky@becky.com
+password = password
+
+You can log in as bart the student to se notifications for canceled sessions:
+email = bart@bart.com
+password = password
+
+You can log in as brock to write lots of reviews that becky can verify:
+email = brock@brock.com
+password = password
 
 
 

@@ -159,7 +159,7 @@ for parent user.
     while($a_row = mysqli_fetch_row($result2)) {
         $sess_date = new DateTime($a_row[3]);
         /* determine which session are in the coming week */
-        if (date_diff($sess_date, $fri_date)->format("%d") < 9){ # assuming week ends on Sunday
+        if (date_diff($sess_date, $fri_date)->format("%y%m%d") < 9){ # assuming week ends on Sunday
             $note_count++;
             $notification_string .= "
             <tr>

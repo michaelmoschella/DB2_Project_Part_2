@@ -3,7 +3,7 @@
 view-students.php
 
 Displays a list of all students and their 
-contact info
+contact info as well as their parents
 ***********************************************/
     session_start();
     
@@ -94,7 +94,7 @@ contact info
     
     echo($html_string);
 
-    echo('<h3><a href="student-dashboard.php">Back to dashboard</a></h3>');
+    echo('<h3><a href="parent-dashboard.php">Back to dashboard</a></h3>');
     echo('<h3><a href="logout.php">Logout</a></h3>');
 
     mysqli_close($myconnection);

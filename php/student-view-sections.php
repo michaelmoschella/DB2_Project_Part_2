@@ -206,7 +206,7 @@ student is eligible to enroll or not.
                 }
                 if ($s_grade >= $row[2] && $mentee && $todays_date < $end_date && !$teaching[0]){
                     if(!$learning[0]) {
-                        if($row2[0] < $row[12]) {
+                        if($row2[0] < $row[13]) {
                             if ($section_flag) {
                                 $html_string .= "<td>Enrolled in different section for this course</td>";
                             } else {
